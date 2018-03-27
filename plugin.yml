@@ -1,0 +1,36 @@
+name: SimplyMusic
+version: 1.0
+main: com.tek.sm.SimplyMusic
+author: [RedstoneTek]
+authors: [xxmicloxx, koca2000] 
+description: A simple music plugin to play all of your favorite beats! A huge thanks to xxmicloxx and koca2000 for the noteblockapi!
+
+commands:
+  music:
+    description: SimplyMusic's base command
+    aliases: [simplymusic]
+
+permissions:
+  simplymusic.*:
+    default: false
+    description: Implies all SimplyMusic permissions
+    children:
+      simplymusic.admin.*: true
+      simplymusic.user.*: true
+  simplymusic.admin.*:
+    default: false
+    description: Implies all admin SimplyMusic permissions
+    children:
+      simplymusic.admin.reload: true
+  simplymusic.user.*:
+    default: false
+    description: Implies all user SimplyMusic permissions
+    children:
+      simplymusic.user.list: true
+      simplymusic.user.play: true
+      simplymusic.user.tune: true
+      simplymusic.user.stop: true
+      simplymusic.user.shuffle: true
+      simplymusic.user.skip: true
+      simplymusic.user.gui: true
+      simplymusic.user.import: true

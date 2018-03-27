@@ -1,0 +1,25 @@
+package com.tek.sm.util;
+
+public enum Commands {
+	HELP("help"),
+	RELOAD("reload"),
+	LIST("list"),
+	PLAY("play"),
+	TUNE("tune"),
+	STOP("stop"),
+	SHUFFLE("shuffle"),
+	SKIP("skip"),
+	GUI("gui"),
+	IMPORT("import"),
+	VOLUME("volume");
+	
+	private final String text;
+	Commands(final String text){
+		this.text = text;
+	}
+	
+	@Override
+    public String toString() {
+        return text;
+    }
+}

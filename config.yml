@@ -1,0 +1,8 @@
+#Turn this on if you want to use a custom language
+#If the custom language used is not working, default language will be used.
+
+custom_lang: false
+
+#Change the lang to your language file. For example, if it's en.yaml, put en.
+
+lang: en
