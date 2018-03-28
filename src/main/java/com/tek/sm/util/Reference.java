@@ -30,7 +30,7 @@ public class Reference {
 	
 	public static final Pattern intPattern = Pattern.compile("(?<=\\s|^)\\d+(?=\\s|$)");
 	
-	public static ItemStack BACKMAIN, BACK, NEXT, STOP, SKIP, PLAY, SHUFFLE, TUNE, REFRESH, VOLUME, SEPARATOR;
+	public static ItemStack BACKMAIN, BACK, NEXT, STOP, SKIP, PLAY, SHUFFLE, TUNE, REFRESH, VOLUME, FILTER, SEPARATOR;
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack randomDisk(Song song) {
@@ -76,14 +76,16 @@ public class Reference {
 		TUNE = ItemUtil.createItemStack(Material.RED_ROSE, 1, (short)0, ChatColor.LIGHT_PURPLE + ITEMTUNE);
 		REFRESH = ItemUtil.createItemStack(Material.PAPER, 1, (short)0, ChatColor.GREEN + ITEMREFRESH);
 	    VOLUME = ItemUtil.createItemStack(Material.DIODE, 1, (short)0, ChatColor.BLUE + ITEMVOLUME);
+	    FILTER = ItemUtil.createItemStack(Material.SIGN, 1, (short)0, ChatColor.DARK_GREEN + ITEMFILTER, ChatColor.GOLD + MISCCLEARFILTER);
 		SEPARATOR = ItemUtil.createItemStack(Material.STAINED_GLASS_PANE, 1, (short)0, " ");
 	}
 	
 	//LANG
 	public static String NEPERMISSIONS, NPLAYER, UNKNOWN, IARGS, IINT, ISONG, IPLAYER, NSONGS, YPLAYER, NLPLAYER, NPLAYING, IVOLUME, IDOWNLOAD, INTERRUPTED, RELOADING, RELOADED, NOWPLAYING, STOPPED, TUNED, SHUFFLED, SKIPPED, PLAYING, OPENED, DOWNLOADING, LISTENING, DOWNLOADED, CVOLUME, WTF;
 	public static String HELPHELP, HELPRELOAD, HELPLIST, HELPPLAY, HELPPLAYID, HELPTUNE, HELPSTOP, HELPSHUFFLE, HELPSKIP, HELPGUI, HELPIMPORT, HELPVOLUME;
-	public static String ITEMBACKMAIN, ITEMBACK, ITEMNEXT, ITEMSTOP, ITEMSKIP, ITEMPLAY, ITEMSHUFFLE, ITEMTUNE, ITEMREFRESH, ITEMVOLUME;
+	public static String ITEMBACKMAIN, ITEMBACK, ITEMNEXT, ITEMSTOP, ITEMSKIP, ITEMPLAY, ITEMSHUFFLE, ITEMTUNE, ITEMREFRESH, ITEMVOLUME, ITEMFILTER;
 	public static String CMDHELP, CMDRELOAD, CMDLIST, CMDPLAY, CMDTUNE, CMDSTOP, CMDSHUFFLE, CMDSKIP, CMDGUI, CMDIMPORT, CMDVOLUME;
+	public static String MISCCLEARFILTER;
 	
 	public static void loadLang(boolean forceDefault) {
 		SimplyMusic.inst().reloadConfig();
@@ -143,6 +145,7 @@ public class Reference {
 			ITEMTUNE      = ItemNames.TUNE.toString();
 			ITEMREFRESH   = ItemNames.REFRESH.toString();
 			ITEMVOLUME    = ItemNames.VOLUME.toString();
+			ITEMFILTER    = ItemNames.FILTER.toString();
 			
 			CMDHELP       = Commands.HELP.toString();
 			CMDRELOAD     = Commands.RELOAD.toString();
@@ -155,6 +158,8 @@ public class Reference {
 			CMDGUI        = Commands.GUI.toString();
 			CMDIMPORT     = Commands.IMPORT.toString();
 			CMDVOLUME     = Commands.VOLUME.toString();
+			
+			MISCCLEARFILTER = MiscText.CLEARFILTER.toString();
 		}else {
 			YamlConfiguration lang = new YamlConfiguration();
 			File langFile = new File("plugins/" + SimplyMusic.inst().getName() + "/" + SimplyMusic.inst().getConfig().getString("lang") + ".yml");
@@ -219,6 +224,7 @@ public class Reference {
 				ITEMTUNE      = lang.getString("item_tune");
 				ITEMREFRESH   = lang.getString("item_refresh");
 				ITEMVOLUME    = lang.getString("item_volume");
+				ITEMFILTER    = lang.getString("item_filter");
 				
 				CMDHELP       = lang.getString("cmd_help");
 				CMDRELOAD     = lang.getString("cmd_reload");
@@ -231,6 +237,8 @@ public class Reference {
 				CMDGUI        = lang.getString("cmd_gui");
 				CMDIMPORT     = lang.getString("cmd_import");
 				CMDVOLUME     = lang.getString("cmd_volume");
+				
+				MISCCLEARFILTER = lang.getString("misc_clearfilter");
 				
 				SimplyMusic.log("Loaded language " + lang.getString("language"));
 			}

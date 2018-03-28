@@ -15,6 +15,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.tek.sm.SimplyMusic;
@@ -27,6 +28,8 @@ import com.tek.sm.util.InventoryUtils;
 import com.tek.sm.util.Reference;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockPlayerMain;
 import com.xxmicloxx.NoteBlockAPI.Song;
+
+import net.wesjd.anvilgui.AnvilGUI;
 
 public class InventoryClick implements Listener{
 	
@@ -59,7 +62,7 @@ public class InventoryClick implements Listener{
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 0 && InventoryUtils.y(e.getRawSlot()) == 4) {
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
-						p.openInventory(new MusicGui(MusicGui.getPage(e.getInventory()) - 1, p).getInventory());
+						p.openInventory(new MusicGui(MusicGui.getPage(e.getInventory()) - 1, p, MusicGui.getFilter(e.getInventory())).getInventory());
 						
 						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
 					}
@@ -67,7 +70,7 @@ public class InventoryClick implements Listener{
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 8 && InventoryUtils.y(e.getRawSlot()) == 4) {
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
-						p.openInventory(new MusicGui(MusicGui.getPage(e.getInventory()) + 1, p).getInventory());
+						p.openInventory(new MusicGui(MusicGui.getPage(e.getInventory()) + 1, p, MusicGui.getFilter(e.getInventory())).getInventory());
 						
 						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
 					}
@@ -116,6 +119,27 @@ public class InventoryClick implements Listener{
 				}
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 3 && InventoryUtils.y(e.getRawSlot()) == 5) {
+					p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+					
+					if(e.getClick().equals(ClickType.LEFT) || e.getClick().equals(ClickType.SHIFT_LEFT)) {
+						new AnvilGUI(SimplyMusic.inst(), p, "Filter Here", (player, reply) -> {
+							if(reply.contains("[") || reply.contains("]")) {
+								p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+								p.openInventory(new MusicGui(1, p, "").getInventory());
+								return "Filtered";
+							}
+						
+							p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+							p.openInventory(new MusicGui(1, p, reply).getInventory());
+						
+							return "Filtered";
+						});
+					}else if(e.getClick().equals(ClickType.RIGHT) || e.getClick().equals(ClickType.SHIFT_RIGHT)){
+						p.openInventory(new MusicGui(1, p, "").getInventory());
+					}
+				}
+				
+				if(InventoryUtils.x(e.getRawSlot()) == 4 && InventoryUtils.y(e.getRawSlot()) == 5) {
 					if(p.hasPermission(CommandPermissions.PLAY.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().playConsec(p);
@@ -181,7 +205,7 @@ public class InventoryClick implements Listener{
 				
 			}
 			
-			if(shouldRefresh) p.openInventory(new MusicGui(MusicGui.getPage(p.getOpenInventory().getTopInventory()), p).getInventory());
+			if(shouldRefresh) p.openInventory(new MusicGui(MusicGui.getPage(p.getOpenInventory().getTopInventory()), p, MusicGui.getFilter(e.getInventory())).getInventory());
 		}
 		
 		if(TuneGui.isTuneGui(e.getInventory())) {
@@ -227,7 +251,7 @@ public class InventoryClick implements Listener{
 				}
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 3 && InventoryUtils.y(e.getRawSlot()) == 3) {
-					p.openInventory(new MusicGui(1, p).getInventory());
+					p.openInventory(new MusicGui(1, p, "").getInventory());
 						
 					p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
 				}
@@ -265,7 +289,7 @@ public class InventoryClick implements Listener{
 			
 			if(e.getCurrentItem() != null) {
 				if(InventoryUtils.x(e.getRawSlot()) == 4 && InventoryUtils.y(e.getRawSlot()) == 2) {
-					p.openInventory(new MusicGui(1, p).getInventory());
+					p.openInventory(new MusicGui(1, p, "").getInventory());
 						
 					p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
 				}

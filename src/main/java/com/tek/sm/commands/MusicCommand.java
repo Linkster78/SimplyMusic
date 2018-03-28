@@ -136,7 +136,7 @@ public class MusicCommand implements CommandExecutor{
 				else if(args[0].equalsIgnoreCase(Reference.CMDGUI)) {
 					if(p.hasPermission(GUI.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
-							p.openInventory(new MusicGui(1, p).getInventory());
+							p.openInventory(new MusicGui(1, p, "").getInventory());
 							p.sendMessage(OPENED.toString());
 						}else {
 							p.sendMessage(NSONGS.toString());

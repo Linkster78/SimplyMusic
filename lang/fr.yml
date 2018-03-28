@@ -64,3 +64,6 @@ item_shuffle: "Musique Aléatoire"
 item_tune: "Écouter avec les autres joueurs"
 item_refresh: "Rafraichir la liste"
 item_volume: "Volume"
+item_filter: "Filtrer les résultats"
+
+misc_clearfilter: "Faites un click droit pour enlever le filtre"

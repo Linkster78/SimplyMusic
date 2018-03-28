@@ -10,7 +10,8 @@ public enum ItemNames {
 	SHUFFLE("Shuffle"),
 	TUNE("Listen along with other players"),
 	REFRESH("Refresh List"),
-	VOLUME("Volume");
+	VOLUME("Volume"),
+	FILTER("Filter Songs");
 	
 	private final String text;
 	ItemNames(final String text){

@@ -1,9 +1,9 @@
 name: SimplyMusic
-version: 1.0
+version: 1.1
 main: com.tek.sm.SimplyMusic
 author: [RedstoneTek]
-authors: [xxmicloxx, koca2000] 
-description: A simple music plugin to play all of your favorite beats! A huge thanks to xxmicloxx and koca2000 for the noteblockapi!
+authors: [xxmicloxx, koca2000, WesJD] 
+description: A simple music plugin to play all of your favorite beats! A huge thanks to xxmicloxx and koca2000 for the noteblockapi aswell as WesJD for the Anvil GUI library!
 
 commands:
   music:
