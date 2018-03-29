@@ -46,7 +46,7 @@ public class SongManager {
 			for(File file : songFolder.listFiles()) {
 				if(file.isDirectory()) continue;
 				
-				Song s = loadSong(file);
+				Song s = (Song)loadSong(file);
 				
 				if(s == null) {
 					System.gc();
@@ -60,7 +60,7 @@ public class SongManager {
 			for(File file : songDownloadFolder.listFiles()) {
 				if(file.isDirectory()) continue;
 				
-				Song s = loadSong(file);
+				Song s = (Song)loadSong(file);
 				
 				if(s == null) {
 					System.gc();
@@ -78,9 +78,9 @@ public class SongManager {
 			Song song = NBSDecoder.parse(file);
 			if(song != null) {
 				for(Song isong : songs) {
-					if(song.getTitle().equals(isong.getTitle()) && song.getSongHeight() == isong.getSongHeight() && song.getSpeed() == isong.getSpeed() && song.getDelay() == isong.getDelay()) {
-						song = null;
-						return null;
+					if(song.getTitle().equals(isong.getTitle()) && song.getSongHeight() == isong.getSongHeight() && song.getSpeed() == isong.getSpeed() && song.getDelay() == isong.getDelay() && song.getLeftClicks() == isong.getLeftClicks()) {
+						song.setAlreadyExists(true);
+						return song;
 					}
 				}
 				
@@ -114,13 +114,20 @@ public class SongManager {
 			rbc = null; fos = null; System.gc();
 			
 			File file = new File("plugins/" + SimplyMusic.inst().getName() + "/songs/downloaded/" + name + ".nbs");
-			Song s = loadSong(file);
+			Song s = (Song)loadSong(file);
 			
 			if(s == null) {
 				System.gc();
 				file.delete();
 				SimplyMusic.log("Cleaned up song " + file.getName() + ", unused or corrupted");
 				downloadResponse(p, s, "Corrupted");
+				return;
+			}else if(s.alreadyExists()){
+				s = null;
+				System.gc();
+				file.delete();
+				SimplyMusic.log("Cleaned up song " + file.getName() + ", already exists");
+				downloadResponse(p, s, "Already Exists");
 				return;
 			}
 			

@@ -15,7 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class NBSDecoder {
-
+	
     public static Song parse(File decodeFile) {
         try {
             return parse(new FileInputStream(decodeFile), decodeFile);
@@ -46,7 +46,7 @@ public class NBSDecoder {
             dis.readByte(); // auto-save duration
             dis.readByte(); // x/4ths, time signature
             readInt(dis); // minutes spent on project
-            readInt(dis); // left clicks (why?)
+            int leftClicks = readInt(dis); // left clicks (why?)
             readInt(dis); // right clicks (why?)
             readInt(dis); // blocks added
             readInt(dis); // blocks removed
@@ -99,7 +99,7 @@ public class NBSDecoder {
             	customInstruments = ci.toArray(customInstruments);
             }
             
-            return new Song(speed, layerHashMap, songHeight, length, title, author, description, decodeFile, customInstruments);
+            return new Song(speed, layerHashMap, songHeight, length, title, author, description, decodeFile, customInstruments, leftClicks);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (EOFException e){
@@ -140,8 +140,9 @@ public class NBSDecoder {
 
     private static String readString(DataInputStream dis) throws IOException {
         int length = readInt(dis);
+        if(length >= 1000) return "";
         if(length == 0) return "";
-        StringBuilder sb = new StringBuilder(length);
+        StringBuilder sb = new StringBuilder(Math.min(length, Integer.MAX_VALUE));
         for (; length > 0; --length) {
             char c = (char) dis.readByte();
             if (c == (char) 0x0D) {
