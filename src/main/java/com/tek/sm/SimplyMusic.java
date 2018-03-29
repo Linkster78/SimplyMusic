@@ -41,17 +41,16 @@ public class SimplyMusic extends JavaPlugin{
 		getCommand("music").setExecutor(new MusicCommand());
 		getCommand("music").setTabCompleter(new MusicTabCompleter());
 		
+		nbpm = new NoteBlockPlayerMain();
+		nbpm.enable();
+		
 		sessionManager = new SessionManager();
 		
 		songManager = new SongManager();
-		songManager.reloadSongs();
 		
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new SongUpdater(), 0, 5);
 		
 		random = new Random();
-		
-		nbpm = new NoteBlockPlayerMain();
-		nbpm.enable();
 		
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			SimplyMusic.inst().getSessionManager().createSession(player);
@@ -63,6 +62,8 @@ public class SimplyMusic extends JavaPlugin{
 		
 		Reference.loadLang(false);
 		Reference.loadItems();
+		
+		songManager.reloadSongs();
 	}
 	
 	public void onDisable() {

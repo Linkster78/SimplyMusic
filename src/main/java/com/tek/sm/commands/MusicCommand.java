@@ -58,15 +58,15 @@ public class MusicCommand implements CommandExecutor{
 				
 				else if(args[0].equalsIgnoreCase(Reference.CMDRELOAD)) {
 					if(p.hasPermission(RELOAD.toString())) {
-						p.sendMessage(RELOADING.toString());
+						p.sendMessage(RELOADING);
 						
 						SimplyMusic.inst().getSongManager().reloadSongs();
 						Reference.loadLang(false);
 						Reference.loadItems();
 						
-						p.sendMessage(RELOADED.toString());
+						p.sendMessage(RELOADED);
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -74,16 +74,16 @@ public class MusicCommand implements CommandExecutor{
 					if(p.hasPermission(LIST.toString())) {
 						p.sendMessage(SimplyMusic.inst().getSongManager().songs());
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
 				else if(args[0].equalsIgnoreCase(Reference.CMDSTOP)) {
 					if(p.hasPermission(CommandPermissions.STOP.toString())) {
 						SimplyMusic.inst().getSongManager().stop(p);
-						p.sendMessage(STOPPED.toString());
+						p.sendMessage(STOPPED);
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -91,12 +91,12 @@ public class MusicCommand implements CommandExecutor{
 					if(p.hasPermission(CommandPermissions.SHUFFLE.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().shuffle(p);
-							p.sendMessage(SHUFFLED.toString());
+							p.sendMessage(SHUFFLED);
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(NSONGS);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -104,12 +104,12 @@ public class MusicCommand implements CommandExecutor{
 					if(p.hasPermission(CommandPermissions.PLAY.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().playConsec(p);
-							p.sendMessage(PLAYING.toString());
+							p.sendMessage(PLAYING);
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(NSONGS);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -118,18 +118,18 @@ public class MusicCommand implements CommandExecutor{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							if(SimplyMusic.inst().getSessionManager().getSession(p) != null && SimplyMusic.inst().getSessionManager().getSession(p).isPlaying()) {
 								SimplyMusic.inst().getSongManager().next(p);
-								p.sendMessage(SKIPPED.toString());
+								p.sendMessage(SKIPPED);
 								
 								PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(p);
 								p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(session.sp.getSong()));
 							}else {
-								p.sendMessage(NPLAYING.toString());
+								p.sendMessage(NPLAYING);
 							}
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(NSONGS);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -137,17 +137,17 @@ public class MusicCommand implements CommandExecutor{
 					if(p.hasPermission(GUI.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							p.openInventory(new MusicGui(1, p, "").getInventory());
-							p.sendMessage(OPENED.toString());
+							p.sendMessage(OPENED);
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(NSONGS);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
 				else {
-					p.sendMessage(UNKNOWN.toString());
+					p.sendMessage(UNKNOWN);
 				}
 			}
 			
@@ -163,16 +163,16 @@ public class MusicCommand implements CommandExecutor{
 									SimplyMusic.inst().getSongManager().playSong(p, song);
 									p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(song));
 								}else {
-									p.sendMessage(ISONG.toString());
+									p.sendMessage(ISONG);
 								}
 							}catch(Exception e) { 
-								p.sendMessage(IINT.toString());
+								p.sendMessage(IINT);
 							}
 						}else {
-							p.sendMessage(IINT.toString());
+							p.sendMessage(IINT);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -184,18 +184,18 @@ public class MusicCommand implements CommandExecutor{
 							if(!player.getName().equals(p.getName())) {
 								if(SimplyMusic.inst().getSongManager().isPlaying(player)) {
 									SimplyMusic.inst().getSongManager().tune(p, player);
-									p.sendMessage(TUNED.toString() + ChatColor.GOLD + player.getName());
+									p.sendMessage(TUNED + ChatColor.GOLD + player.getName());
 								}else {
-									p.sendMessage(NLPLAYER.toString());
+									p.sendMessage(NLPLAYER);
 								}
 							}else {
-								p.sendMessage(YPLAYER.toString());
+								p.sendMessage(YPLAYER);
 							}
 						}else {
-							p.sendMessage(IPLAYER.toString());
+							p.sendMessage(IPLAYER);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
@@ -208,46 +208,46 @@ public class MusicCommand implements CommandExecutor{
 								if(vol >= 0 && vol <= 100) {
 									NoteBlockPlayerMain.setPlayerVolume(p, (byte)vol);
 									
-									p.sendMessage(CVOLUME.toString() + vol);
+									p.sendMessage(CVOLUME + vol);
 								}else {
-									p.sendMessage(IVOLUME.toString());
+									p.sendMessage(IVOLUME);
 								}
 							}catch(Exception e) { 
-								p.sendMessage(IINT.toString());
+								p.sendMessage(IINT);
 							}
 						}else {
-							p.sendMessage(IINT.toString());
+							p.sendMessage(IINT);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
 				else {
-					p.sendMessage(UNKNOWN.toString());
+					p.sendMessage(UNKNOWN);
 				}
 			}
 			
 			else if(args.length == 3){
 				if(args[0].equalsIgnoreCase(Reference.CMDIMPORT)) {
 					if(p.hasPermission(IMPORT.toString())) {
-						p.sendMessage(DOWNLOADING.toString());
+						p.sendMessage(DOWNLOADING);
 						SimplyMusic.inst().getSongManager().downloadSong(args[2], args[1], p);
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(NEPERMISSIONS);
 					}
 				}
 				
 				else {
-					p.sendMessage(UNKNOWN.toString());
+					p.sendMessage(UNKNOWN);
 				}
 			}
 			
 			else {
-				p.sendMessage(IARGS.toString());
+				p.sendMessage(IARGS);
 			}
 		}else {
-			sender.sendMessage(NPLAYER.toString());
+			sender.sendMessage(NPLAYER);
 		}
 		
 		return false;

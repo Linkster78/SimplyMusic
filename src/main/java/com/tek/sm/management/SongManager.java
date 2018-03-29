@@ -78,7 +78,7 @@ public class SongManager {
 			Song song = NBSDecoder.parse(file);
 			if(song != null) {
 				for(Song isong : songs) {
-					if(song.getTitle().equals(isong.getTitle()) && song.getSongHeight() == isong.getSongHeight()) {
+					if(song.getTitle().equals(isong.getTitle()) && song.getSongHeight() == isong.getSongHeight() && song.getSpeed() == isong.getSpeed() && song.getDelay() == isong.getDelay()) {
 						song = null;
 						return null;
 					}
@@ -88,8 +88,6 @@ public class SongManager {
 				SimplyMusic.log("Loaded song " + songName(song));
 				
 				return song;
-			}else {
-				song = null;
 			}
 		}
 		

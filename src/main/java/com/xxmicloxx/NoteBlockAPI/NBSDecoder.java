@@ -32,6 +32,7 @@ public class NBSDecoder {
     private static Song parse(InputStream inputStream, File decodeFile) {
         HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
         byte biggestInstrumentIndex = -1;
+        
         try {
             DataInputStream dis = new DataInputStream(inputStream);
             short length = readShort(dis);
@@ -139,6 +140,7 @@ public class NBSDecoder {
 
     private static String readString(DataInputStream dis) throws IOException {
         int length = readInt(dis);
+        if(length == 0) return "";
         StringBuilder sb = new StringBuilder(length);
         for (; length > 0; --length) {
             char c = (char) dis.readByte();
