@@ -23,13 +23,17 @@ import org.bukkit.inventory.Inventory;
 public class GlobalWrapper implements VersionWrapper {
 
 	public static Class<?> getObjectClass(String prefix, String name){
-		String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+		String version = version();
 		
 		try {
 			return Class.forName(prefix + "." + version + "." + name);
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
+	}
+	
+	public static String version() {
+		return Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
 	}
 	
     /**
