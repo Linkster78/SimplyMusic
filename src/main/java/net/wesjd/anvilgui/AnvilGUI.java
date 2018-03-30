@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-import net.wesjd.anvilgui.version.Version;
+import net.wesjd.anvilgui.version.GlobalWrapper;
 import net.wesjd.anvilgui.version.VersionWrapper;
 
 /**
@@ -94,9 +94,7 @@ public class AnvilGUI {
         paper.setItemMeta(paperMeta);
         this.insert = paper;
 
-        final Version version = Version.of(Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3]);
-        Validate.notNull(version, "Your server version isn't supported in AnvilGUI!");
-        wrapper = version.getWrapper();
+        wrapper = new GlobalWrapper();
 
         wrapper.handleInventoryCloseEvent(holder);
         wrapper.setActiveContainerDefault(holder);

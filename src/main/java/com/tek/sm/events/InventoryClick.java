@@ -48,6 +48,7 @@ public class InventoryClick implements Listener{
 				if(InventoryUtils.y(e.getRawSlot()) < 4) {
 					if(p.hasPermission(CommandPermissions.PLAY.toString())) {
 						Song song = SimplyMusic.inst().getSongManager().getSongByItem(e.getCurrentItem());
+						if(song == null) return;
 						SimplyMusic.inst().getSongManager().playSong(p, song);
 						
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
