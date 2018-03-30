@@ -11,7 +11,6 @@ import static com.tek.sm.util.Reference.TUNED;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,10 +25,9 @@ import com.tek.sm.management.PlayerSession;
 import com.tek.sm.util.CommandPermissions;
 import com.tek.sm.util.InventoryUtils;
 import com.tek.sm.util.Reference;
-import com.xxmicloxx.NoteBlockAPI.CompatibilityUtils;
+import com.tek.sm.util.VersionUtils;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockPlayerMain;
 import com.xxmicloxx.NoteBlockAPI.Song;
-import com.xxmicloxx.NoteBlockAPI.SoundCategory;
 
 import net.wesjd.anvilgui.AnvilGUI;
 
@@ -53,13 +51,13 @@ public class InventoryClick implements Listener{
 						if(song == null) return;
 						SimplyMusic.inst().getSongManager().playSong(p, song);
 						
-						CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+						VersionUtils.playSuccess(p);
 						p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(song));
 						
 						shouldRefresh = true;
 					}else {
 						p.sendMessage(Reference.NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -67,7 +65,7 @@ public class InventoryClick implements Listener{
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
 						p.openInventory(new MusicGui(MusicGui.getPage(e.getInventory()) - 1, p, MusicGui.getFilter(e.getInventory())).getInventory());
 						
-						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+						VersionUtils.playPop(p);
 					}
 				}
 				
@@ -75,7 +73,7 @@ public class InventoryClick implements Listener{
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
 						p.openInventory(new MusicGui(MusicGui.getPage(e.getInventory()) + 1, p, MusicGui.getFilter(e.getInventory())).getInventory());
 						
-						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+						VersionUtils.playPop(p);
 					}
 				}
 				
@@ -83,13 +81,13 @@ public class InventoryClick implements Listener{
 					if(p.hasPermission(CommandPermissions.STOP.toString())) {
 						SimplyMusic.inst().getSongManager().stop(p);
 						
-						CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+						VersionUtils.playSuccess(p);
 						p.sendMessage(Reference.STOPPED.toString());
 						
 						shouldRefresh = true;
 					}else {
 						p.sendMessage(Reference.NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -99,7 +97,7 @@ public class InventoryClick implements Listener{
 							if(SimplyMusic.inst().getSessionManager().getSession(p) != null && SimplyMusic.inst().getSessionManager().getSession(p).isPlaying()) {
 								SimplyMusic.inst().getSongManager().next(p);
 								
-								CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+								VersionUtils.playSuccess(p);
 								p.sendMessage(SKIPPED.toString());
 								PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(p);
 								if(!session.shuffle && !session.consec) {
@@ -109,30 +107,30 @@ public class InventoryClick implements Listener{
 								shouldRefresh = true;
 							}else {
 								p.sendMessage(NPLAYING.toString());
-								p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+								VersionUtils.playError(p);
 							}
 						}else {
 							p.sendMessage(NSONGS.toString());
-							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+							VersionUtils.playError(p);
 						}
 					}else {
 						p.sendMessage(NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 3 && InventoryUtils.y(e.getRawSlot()) == 5) {
-					p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+					VersionUtils.playPop(p);
 					
 					if(e.getClick().equals(ClickType.LEFT) || e.getClick().equals(ClickType.SHIFT_LEFT)) {
 						new AnvilGUI(SimplyMusic.inst(), p, "Filter Here", (player, reply) -> {
 							if(reply.contains("[") || reply.contains("]")) {
-								p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+								VersionUtils.playPop(p);
 								p.openInventory(new MusicGui(1, p, "").getInventory());
 								return "Filtered";
 							}
 						
-							p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+							VersionUtils.playPop(p);
 							p.openInventory(new MusicGui(1, p, reply).getInventory());
 						
 							return "Filtered";
@@ -147,16 +145,17 @@ public class InventoryClick implements Listener{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().playConsec(p);
 							
-							CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+							VersionUtils.playSuccess(p);
 							p.sendMessage(PLAYING.toString());
 							
 							shouldRefresh = true;
 						}else {
 							p.sendMessage(NSONGS.toString());
-							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+							VersionUtils.playError(p);
 						}
 					}else {
 						p.sendMessage(NEPERMISSIONS.toString());
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -164,10 +163,10 @@ public class InventoryClick implements Listener{
 					if(p.hasPermission(CommandPermissions.VOLUME.toString())) {
 						p.openInventory(new VolumeGui(p).getInventory());
 						
-						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+						VersionUtils.playPop(p);
 					}else {
 						p.sendMessage(NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -176,17 +175,17 @@ public class InventoryClick implements Listener{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().shuffle(p);
 							
-							CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+							VersionUtils.playSuccess(p);
 							p.sendMessage(SHUFFLED.toString());
 							
 							shouldRefresh = true;
 						}else {
 							p.sendMessage(NSONGS.toString());
-							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+							VersionUtils.playError(p);
 						}
 					}else {
 						p.sendMessage(NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -195,14 +194,14 @@ public class InventoryClick implements Listener{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							p.openInventory(new TuneGui(1, p).getInventory());
 							
-							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+							VersionUtils.playSuccess(p);
 						}else {
 							p.sendMessage(NSONGS.toString());
-							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+							VersionUtils.playError(p);
 						}
 					}else {
 						p.sendMessage(NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -225,7 +224,7 @@ public class InventoryClick implements Listener{
 								
 								SimplyMusic.inst().getSongManager().tune(p, player);
 								
-								CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+								VersionUtils.playSuccess(p);
 								p.sendMessage(TUNED.toString() + ChatColor.GOLD + player.getName());
 						
 								shouldRefresh = true;
@@ -233,7 +232,7 @@ public class InventoryClick implements Listener{
 						}
 					}else {
 						p.sendMessage(Reference.NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
@@ -241,7 +240,7 @@ public class InventoryClick implements Listener{
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
 						p.openInventory(new TuneGui(TuneGui.getPage(e.getInventory()) - 1, p).getInventory());
 					
-						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+						VersionUtils.playPop(p);
 					}
 				}
 			
@@ -249,33 +248,33 @@ public class InventoryClick implements Listener{
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
 						p.openInventory(new TuneGui(TuneGui.getPage(e.getInventory()) + 1, p).getInventory());
 					
-						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+						VersionUtils.playPop(p);
 					}
 				}
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 3 && InventoryUtils.y(e.getRawSlot()) == 3) {
 					p.openInventory(new MusicGui(1, p, "").getInventory());
 						
-					p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+					VersionUtils.playPop(p);
 				}
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 4 && InventoryUtils.y(e.getRawSlot()) == 3) {
 					if(p.hasPermission(CommandPermissions.STOP.toString())) {
 						SimplyMusic.inst().getSongManager().stop(p);
 						
-						CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+						VersionUtils.playSuccess(p);
 						p.sendMessage(Reference.STOPPED.toString());
 						
 						shouldRefresh = true;
 					}else {
 						p.sendMessage(Reference.NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 				
 				if(InventoryUtils.x(e.getRawSlot()) == 5 && InventoryUtils.y(e.getRawSlot()) == 3) {
 					if(e.getCurrentItem().getType().equals(Material.PAPER)) {
-						p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+						VersionUtils.playPop(p);
 						
 						shouldRefresh = true;
 					}
@@ -294,7 +293,7 @@ public class InventoryClick implements Listener{
 				if(InventoryUtils.x(e.getRawSlot()) == 4 && InventoryUtils.y(e.getRawSlot()) == 2) {
 					p.openInventory(new MusicGui(1, p, "").getInventory());
 						
-					p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+					VersionUtils.playPop(p);
 				}
 				
 				if(InventoryUtils.y(e.getRawSlot()) == 1) {
@@ -303,13 +302,13 @@ public class InventoryClick implements Listener{
 						
 						NoteBlockPlayerMain.setPlayerVolume(p, (byte)volume);
 						
-						CompatibilityUtils.playSound(p, p.getLocation(), Sound.BLOCK_NOTE_GUITAR, SoundCategory.RECORDS, 1, 1);
+						VersionUtils.playSuccess(p);
 						p.sendMessage(CVOLUME.toString() + volume);
 						
 						shouldRefresh = true;
 					}else {
 						p.sendMessage(NEPERMISSIONS.toString());
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
+						VersionUtils.playError(p);
 					}
 				}
 			}
