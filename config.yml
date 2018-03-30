@@ -1,8 +1,11 @@
 #Turn this on if you want to use a custom language
 #If the custom language used is not working, default language will be used.
-
 custom_lang: false
 
 #Change the lang to your language file. For example, if it's en.yaml, put en.
-
 lang: en
+
+#Titles config
+title_inventory: "&8[&5Simply&9Music&8]"
+title_volume: "&8[&5Volume&9 Menu&8]"
+title_tune: "&8[&5Tune&9 Menu&8]"

@@ -51,7 +51,7 @@ public class InventoryClick implements Listener{
 						if(song == null) return;
 						SimplyMusic.inst().getSongManager().playSong(p, song);
 						
-						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 						p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(song));
 						
 						shouldRefresh = true;
@@ -81,7 +81,7 @@ public class InventoryClick implements Listener{
 					if(p.hasPermission(CommandPermissions.STOP.toString())) {
 						SimplyMusic.inst().getSongManager().stop(p);
 						
-						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 						p.sendMessage(Reference.STOPPED.toString());
 						
 						shouldRefresh = true;
@@ -97,7 +97,7 @@ public class InventoryClick implements Listener{
 							if(SimplyMusic.inst().getSessionManager().getSession(p) != null && SimplyMusic.inst().getSessionManager().getSession(p).isPlaying()) {
 								SimplyMusic.inst().getSongManager().next(p);
 								
-								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 								p.sendMessage(SKIPPED.toString());
 								PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(p);
 								if(!session.shuffle && !session.consec) {
@@ -145,7 +145,7 @@ public class InventoryClick implements Listener{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().playConsec(p);
 							
-							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 							p.sendMessage(PLAYING.toString());
 							
 							shouldRefresh = true;
@@ -174,7 +174,7 @@ public class InventoryClick implements Listener{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().shuffle(p);
 							
-							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 							p.sendMessage(SHUFFLED.toString());
 							
 							shouldRefresh = true;
@@ -193,7 +193,7 @@ public class InventoryClick implements Listener{
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							p.openInventory(new TuneGui(1, p).getInventory());
 							
-							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 						}else {
 							p.sendMessage(NSONGS.toString());
 							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
@@ -223,7 +223,7 @@ public class InventoryClick implements Listener{
 								
 								SimplyMusic.inst().getSongManager().tune(p, player);
 								
-								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 								p.sendMessage(TUNED.toString() + ChatColor.GOLD + player.getName());
 						
 								shouldRefresh = true;
@@ -261,7 +261,7 @@ public class InventoryClick implements Listener{
 					if(p.hasPermission(CommandPermissions.STOP.toString())) {
 						SimplyMusic.inst().getSongManager().stop(p);
 						
-						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 						p.sendMessage(Reference.STOPPED.toString());
 						
 						shouldRefresh = true;
@@ -301,7 +301,7 @@ public class InventoryClick implements Listener{
 						
 						NoteBlockPlayerMain.setPlayerVolume(p, (byte)volume);
 						
-						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_XYLOPHONE, 1, 1);
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 						p.sendMessage(CVOLUME.toString() + volume);
 						
 						shouldRefresh = true;

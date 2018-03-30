@@ -45,7 +45,6 @@ public class SimplyMusic extends JavaPlugin{
 		nbpm.enable();
 		
 		sessionManager = new SessionManager();
-		
 		songManager = new SongManager();
 		
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new SongUpdater(), 0, 5);

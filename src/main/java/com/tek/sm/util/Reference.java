@@ -1,9 +1,6 @@
 package com.tek.sm.util;
 
 import static org.bukkit.ChatColor.AQUA;
-import static org.bukkit.ChatColor.BLUE;
-import static org.bukkit.ChatColor.DARK_GRAY;
-import static org.bukkit.ChatColor.DARK_PURPLE;
 import static org.bukkit.ChatColor.GOLD;
 import static org.bukkit.ChatColor.WHITE;
 
@@ -22,10 +19,7 @@ import com.xxmicloxx.NoteBlockAPI.Song;
 
 public class Reference {
 	
-	public static final String INVENTORY_TITLE =  DARK_GRAY + "[" + DARK_PURPLE + "Simply" + BLUE + "Music" + DARK_GRAY + "]";
-	public static final String TUNE_TITLE =  DARK_GRAY + "[" + DARK_PURPLE + "Tune" + BLUE + " Menu" + DARK_GRAY + "]";
-	public static final String VOLUME_TITLE =  DARK_GRAY + "[" + DARK_PURPLE + "Volume" + BLUE + " Menu" + DARK_GRAY + "]";
-	public static final String PREFIX = INVENTORY_TITLE + ": " + WHITE;
+	public static String INVENTORY_TITLE, VOLUME_TITLE, TUNE_TITLE, PREFIX;
 	public static final String PERMISSION_ROOT = "simplymusic.";
 	
 	public static final Pattern intPattern = Pattern.compile("(?<=\\s|^)\\d+(?=\\s|$)");
@@ -90,8 +84,26 @@ public class Reference {
 	public static void loadLang(boolean forceDefault) {
 		SimplyMusic.inst().reloadConfig();
 		
+		SimplyMusic.log("Loading custom prefixes");
+		
+		if(SimplyMusic.inst().getConfig().getString("title_inventory") == null) SimplyMusic.inst().getConfig().set("title_inventory", MiscText.TITLEINVENTORY.toString());
+		if(SimplyMusic.inst().getConfig().getString("title_volume") == null) SimplyMusic.inst().getConfig().set("title_volume", MiscText.TITLEVOLUME.toString());
+		if(SimplyMusic.inst().getConfig().getString("title_tune") == null) SimplyMusic.inst().getConfig().set("title_tune", MiscText.TITLETUNE.toString());
+		
+		String titleinventory = SimplyMusic.inst().getConfig().getString("title_inventory");
+		String titlevolume = SimplyMusic.inst().getConfig().getString("title_volume");
+		String titletune = SimplyMusic.inst().getConfig().getString("title_tune");
+		
+		INVENTORY_TITLE = ChatColor.translateAlternateColorCodes('&', titleinventory);
+		VOLUME_TITLE = ChatColor.translateAlternateColorCodes('&', titlevolume);
+		TUNE_TITLE = ChatColor.translateAlternateColorCodes('&', titletune);
+		
+		PREFIX = INVENTORY_TITLE + ": " + WHITE;
+		
+		SimplyMusic.log("Loaded custom prefixes");
+		
 		boolean custom = SimplyMusic.inst().getConfig().getBoolean("custom_lang");
-	
+		
 		if(custom == false || forceDefault) {
 			NEPERMISSIONS = CommandResponse.NEPERMISSIONS.toString();
 			NPLAYER       = CommandResponse.NPLAYER.toString();
