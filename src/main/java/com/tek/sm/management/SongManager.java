@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.tek.sm.SimplyMusic;
+import com.tek.sm.playlists.Playlist;
 import com.tek.sm.util.Reference;
 import com.xxmicloxx.NoteBlockAPI.NBSDecoder;
 import com.xxmicloxx.NoteBlockAPI.Song;
@@ -184,6 +185,12 @@ public class SongManager {
 		session.shuffle();
 	}
 	
+	public void loop(Player player, Song song) {
+		SimplyMusic.inst().getSessionManager().createSession(player);
+		PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(player);
+		session.loop(song);
+	}
+	
 	public void playConsec(Player player) {
 		SimplyMusic.inst().getSessionManager().createSession(player);
 		PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(player);
@@ -194,6 +201,12 @@ public class SongManager {
 		SimplyMusic.inst().getSessionManager().createSession(player);
 		PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(player);
 		session.next();
+	}
+	
+	public void playList(Player player, Playlist playlist) {
+		SimplyMusic.inst().getSessionManager().createSession(player);
+		PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(player);
+		session.playList(playlist);
 	}
 	
 	public boolean isPlaying(Player player) {
@@ -228,6 +241,10 @@ public class SongManager {
 		}
 		
 		return songs;
+	}
+	
+	public ArrayList<Song> getSongs(){
+		return this.songs;
 	}
 	
 	private static boolean containsIgnoreCase(String str, String searchStr)     {
@@ -294,6 +311,10 @@ public class SongManager {
 	
 	public String nowPlaying(Song song) {
 		return Reference.NOWPLAYING.toString() + ChatColor.GOLD + songName(song);
+	}
+	
+	public String nowLooping(Song song) {
+		return Reference.NOWLOOPING.toString() + ChatColor.GOLD + songName(song);
 	}
 	
 	public int amount() {

@@ -11,7 +11,8 @@ public enum ItemNames {
 	TUNE("Listen along with other players"),
 	REFRESH("Refresh List"),
 	VOLUME("Volume"),
-	FILTER("Filter Songs");
+	FILTER("Filter Songs"),
+	PLAYLIST("Playlists");
 	
 	private final String text;
 	ItemNames(final String text){

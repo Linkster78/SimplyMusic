@@ -1,3 +1,17 @@
+################################################################################
+#  _____   _                       _           __  __                 _        #
+# / ____| (_)                     | |         |  \/  |               (_)       #
+#| (___    _   _ __ ___    _ __   | |  _   _  | \  / |  _   _   ___   _    ___ #
+# \___ \  | | | '_ ` _ \  | '_ \  | | | | | | | |\/| | | | | | / __| | |  / __|#
+# ____) | | | | | | | | | | |_) | | | | |_| | | |  | | | |_| | \__ \ | | | (__ #
+#|_____/  |_| |_| |_| |_| | .__/  |_|  \__, | |_|  |_|  \__,_| |___/ |_|  \___|#
+#                         | |           __/ |                                  #
+#                         |_|          |___/                                   #
+#                                                                              # 
+#                    #Developed by RedstoneTek, on Spigot                      #
+#                      #French Language by RedstoneTek                         #
+################################################################################
+
 language: "French (Canada)"
 
 nepermissions: "Vous n'avez pas assez de permissions"
@@ -14,14 +28,19 @@ nplaying: "Vous n'êtes pas en train d'écouter de la musique"
 ivolume: "Le volume doit être un nombre de 0 à 100"
 idownload: "Il y a eu un problème en téléchargeant la musique "
 interrupted: "Votre musique a été arrêtée à cause d'un reload de la librairie musicale"
+eplaylist: "Cette playlist est vide"
+fplaylist: "Cette playlist est remplie"
 reloading: "Rechargement du plugin..."
 reloaded: "Plugin rechargé"
 nowplaying: "Maintenant en lecture: "
+nowlooping: "Maintenant en lecture continue: "
 stopped: "Musique arrêtée"
 tuned: "Vous écoutez maintenant de la musique avec "
 shuffled: "Maintenant en lecture aléatoire"
 skipped: "Prochaine chanson"
 playing: "Maintenant en lecture continue"
+added: "Musique ajoutée à la playlist "
+removed: "Musique enlevée de la playlist "
 listening: "Vous écoutez "
 opened: "GUI musical ouvert"
 downloading: "Téléchargement de la musique en cours..."
@@ -33,6 +52,7 @@ help_help: "Montre le menu d'aide"
 help_reload: "Recharge le plugin"
 help_list: "Liste toutes les musiques accessibles"
 help_play: "Joue toutes les musiques de façon consécutive"
+help_loop: "Joue une musique en boucle"
 help_playid: "Joue la musique correspondante au ID"
 help_tune: "Écoute de la musique avec un utilisateur"
 help_stop: "Arrête la musique"
@@ -46,6 +66,7 @@ cmd_help: "aide"
 cmd_reload: "recharger"
 cmd_list: "liste"
 cmd_play: "jouer"
+cmd_loop: "boucle"
 cmd_tune: "tune"
 cmd_stop: "arreter"
 cmd_shuffle: "aleatoire"
@@ -65,5 +86,9 @@ item_tune: "Écouter avec les autres joueurs"
 item_refresh: "Rafraichir la liste"
 item_volume: "Volume"
 item_filter: "Filtrer les résultats"
+item_playlist: "Playlists"
 
 misc_clearfilter: "Faites un click droit pour enlever le filtre"
+misc_loop: "Faites un click droit pour jouer la musique en lecture continue"
+misc_add: "Faites un click gauche pour l'ajouter à la playlist"
+misc_remove: "Faites un click gauche pour l'enlever de la playlist"

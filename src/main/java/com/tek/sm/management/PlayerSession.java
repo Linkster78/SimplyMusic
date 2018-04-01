@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.tek.sm.SimplyMusic;
+import com.tek.sm.playlists.Playlist;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockPlayerMain;
 import com.xxmicloxx.NoteBlockAPI.RadioSongPlayer;
 import com.xxmicloxx.NoteBlockAPI.Song;
@@ -21,21 +22,31 @@ public class PlayerSession {
 	public SongPlayer sp;
 	public boolean shuffle;
 	public boolean consec;
-	public int song;
+	public boolean loop;
+	public boolean playliste;
+	public int song, playlist;
+	public Playlist[] playlists;
 	
 	public PlayerSession(UUID uuid) {
 		this.uuid = uuid;
 		this.targetUUID = this.uuid;
 		this.shuffle = false;
 		this.consec = false;
+		this.loop = false;
+		this.playliste = false;
+		this.playlists = new Playlist[3];
 		this.song = 0;
+		this.playlist = -1;
 	}
 	
 	public void close(boolean reset) {
 		if(reset) {
 			this.shuffle = false;
 			this.consec = false;
+			this.loop = false;
+			this.playliste = false;
 			this.song = 0;
+			this.playlist = -1;
 		}
 
 		if(this.sp != null) {
@@ -62,6 +73,10 @@ public class PlayerSession {
 		}
 	}
 	
+	public Playlist getPlaylist(int index) {
+		return playlists[index];
+	}
+	
 	public void playSong(Song song, boolean reset) {
 		close(reset);
 		
@@ -85,6 +100,21 @@ public class PlayerSession {
 		
 		this.consec = false;
 		this.shuffle = true;
+		this.loop = false;
+		this.playliste = false;
+		
+		next();
+	}
+	
+	public void loop(Song song) {
+		close(true);
+		
+		this.consec = false;
+		this.shuffle = false;
+		this.loop = true;
+		this.playliste = false;
+		this.song = SimplyMusic.inst().getSongManager().getIndex(song);
+		this.playlist = -1;
 		
 		next();
 	}
@@ -94,7 +124,10 @@ public class PlayerSession {
 		
 		this.shuffle = false;
 		this.consec = true;
+		this.loop = true;
+		this.playliste = false;
 		this.song = -1;
+		this.playlist = -1;
 		
 		next();
 	}
@@ -105,7 +138,7 @@ public class PlayerSession {
 		
 		close(false);
 		
-		if(!this.shuffle && !this.consec) {
+		if(!this.shuffle && !this.consec && !this.loop) {
 			if(playing) {
 				index++;
 				if(index == SimplyMusic.inst().getSongManager().amount()) index = 0;
@@ -124,6 +157,30 @@ public class PlayerSession {
 			Song song = SimplyMusic.inst().getSongManager().getSong(this.song);
 			playSong(song, false);
 		}
+		
+		if(this.loop) {
+			playSong(SimplyMusic.inst().getSongManager().getSong(song), false);
+		}
+		
+		if(this.playliste) {
+			song++;
+			if(song == playlists[playlist].getSongs().size()) song = 0;
+			Song song = playlists[playlist].atPos(this.song);
+			playSong(song, false);
+		}
+	}
+	
+	public void playList(Playlist playlist) {
+		close(true);
+			
+		this.consec = false;
+		this.shuffle = false;
+		this.loop = false;
+		this.playliste = true;
+		this.song = -1;
+		this.playlist = playlistIndex(playlist);
+			
+		next();
 	}
 	
 	public void createSettings() {
@@ -145,10 +202,15 @@ public class PlayerSession {
 		YamlConfiguration settings = new YamlConfiguration();
 		try {
 			settings.load(file);
+			
+			if(settings.getConfigurationSection("playlists") == null) {
+				for(int i = 0; i < 3; i++) { settings.set("playlists.pl_" + i, Playlist.createEmpty().encode()); }
+			}
 		} catch (IOException | InvalidConfigurationException e) { }
 		
 		if(justCreated) {
 			settings.set("volume", 100);
+			for(int i = 0; i < 3; i++) { settings.set("playlists.pl_" + i, Playlist.createEmpty().encode() ); }
 			
 			try {
 				settings.save(file);
@@ -168,6 +230,10 @@ public class PlayerSession {
 		
 		settings.set("volume", NoteBlockPlayerMain.getPlayerVolume(player()));
 		
+		for(int i = 0; i < 3; i++) {
+			settings.set("playlists.pl_" + i, playlists[i].encode());
+		}
+		
 		try {
 			settings.save(file);
 		} catch (IOException e) { }
@@ -181,6 +247,10 @@ public class PlayerSession {
 		} catch (IOException | InvalidConfigurationException e) { }
 		
 		NoteBlockPlayerMain.setPlayerVolume(player(), (byte) settings.getInt("volume"));
+		
+		for(int i = 0; i < 3; i++) {
+			this.playlists[i] = new Playlist(settings.getString("playlists.pl_" + i));
+		}
 	}
 	
 	public boolean isListening() {
@@ -211,6 +281,14 @@ public class PlayerSession {
 	
 	public Song getSongListening() {
 		return isListening() ? isPlaying() ? getSongPlaying() : SimplyMusic.inst().getSessionManager().getSession(this.targetUUID).getSongPlaying() : null;
+	}
+	
+	public int playlistIndex(Playlist playlist) {
+		for(int i = 0; i < 3; i++) {
+			if(playlists[i].equals(playlist)) return i;
+		}
+		
+		return -1;
 	}
 	
 	public Player player() {

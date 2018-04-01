@@ -6,6 +6,7 @@ public enum CommandDescriptions {
 	LIST("Lists all available songs"),
 	PLAY("Plays every song one after the other"),
 	PLAYID("Plays the song with the specified id"),
+	LOOP("Plays a song in a loop"),
 	TUNE("Listens along with the specified player"),
 	STOP("Stops song playback"),
 	SHUFFLE("Plays random songs one after the other"),

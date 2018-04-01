@@ -5,6 +5,7 @@ public enum Commands {
 	RELOAD("reload"),
 	LIST("list"),
 	PLAY("play"),
+	LOOP("loop"),
 	TUNE("tune"),
 	STOP("stop"),
 	SHUFFLE("shuffle"),

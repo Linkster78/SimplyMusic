@@ -42,6 +42,27 @@ public class SongUpdater implements Runnable{
 						session.player().sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(song));
 					}
 				}
+				
+				if(session.loop) {
+					if(!session.isPlaying()) {
+						Song song = SimplyMusic.inst().getSongManager().getSong(session.song);
+						session.playSong(song, false);
+					}
+				}
+				
+				if(session.playliste) {
+					if(!session.isPlaying()) {
+						if(session.playlists[session.playlist].getSongs().size() == 0) {
+							session.close(true);
+							continue;
+						}
+						session.song++;
+						if(session.song == session.playlists[session.playlist].getSongs().size()) session.song = 0;
+						Song song = SimplyMusic.inst().getSessionManager().getSession(session.player()).getPlaylist(session.playlist).atPos(session.song);
+						session.playSong(song, false);
+						session.player().sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(song));
+					}
+				}
 			}
 			
 			if(session.isListening()) {

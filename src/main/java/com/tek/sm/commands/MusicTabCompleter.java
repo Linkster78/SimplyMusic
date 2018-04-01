@@ -28,6 +28,7 @@ public class MusicTabCompleter implements TabCompleter{
 			suggestions.add(Reference.CMDGUI);
 			suggestions.add(Reference.CMDIMPORT);
 			suggestions.add(Reference.CMDVOLUME);
+			suggestions.add(Reference.CMDLOOP);
 		}
 		
 		else if(args.length == 2) {

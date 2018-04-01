@@ -38,6 +38,7 @@ public class MusicGui{
 		inventory.setItem(InventoryUtils.slot(3, 5), Reference.FILTER);
 		inventory.setItem(InventoryUtils.slot(4, 5), Reference.PLAY);
 		inventory.setItem(InventoryUtils.slot(5, 5), Reference.VOLUME);
+		inventory.setItem(InventoryUtils.slot(6, 5), Reference.PLAYLIST);
 		inventory.setItem(InventoryUtils.slot(7, 5), Reference.SHUFFLE);
 		inventory.setItem(InventoryUtils.slot(8, 5), Reference.TUNE);
 		

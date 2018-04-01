@@ -176,6 +176,30 @@ public class MusicCommand implements CommandExecutor{
 					}
 				}
 				
+				if(args[0].equalsIgnoreCase(Reference.CMDLOOP)) {
+					if(p.hasPermission(CommandPermissions.LOOP.toString())) {
+						if(Reference.intPattern.matcher(args[1]).matches()) {
+							try {
+								int songid = Integer.parseInt(args[1]);
+								Song song = SimplyMusic.inst().getSongManager().getSong(songid - 1);
+								
+								if(song != null) {
+									SimplyMusic.inst().getSongManager().loop(p, song);
+									p.sendMessage(SimplyMusic.inst().getSongManager().nowLooping(song));
+								}else {
+									p.sendMessage(ISONG);
+								}
+							}catch(Exception e) { 
+								p.sendMessage(IINT);
+							}
+						}else {
+							p.sendMessage(IINT);
+						}
+					}else {
+						p.sendMessage(NEPERMISSIONS);
+					}
+				}
+				
 				else if(args[0].equalsIgnoreCase(Reference.CMDTUNE)) {
 					if(p.hasPermission(CommandPermissions.TUNE.toString())) {
 						Player player = SimplyMusic.inst().getServer().getPlayer(args[1]);

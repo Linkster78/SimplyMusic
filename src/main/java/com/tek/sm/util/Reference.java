@@ -19,12 +19,16 @@ import com.xxmicloxx.NoteBlockAPI.Song;
 
 public class Reference {
 	
-	public static String INVENTORY_TITLE, VOLUME_TITLE, TUNE_TITLE, PREFIX;
+	public static String INVENTORY_TITLE, VOLUME_TITLE, TUNE_TITLE, PLAYLIST_TITLE, CHOOSE_TITLE, PREFIX;
 	public static final String PERMISSION_ROOT = "simplymusic.";
 	
 	public static final Pattern intPattern = Pattern.compile("(?<=\\s|^)\\d+(?=\\s|$)");
 	
-	public static ItemStack BACKMAIN, BACK, NEXT, STOP, SKIP, PLAY, SHUFFLE, TUNE, REFRESH, VOLUME, FILTER, SEPARATOR;
+	public static ItemStack BACKMAIN, BACK, NEXT, STOP, SKIP, PLAY, SHUFFLE, TUNE, REFRESH, VOLUME, FILTER, PLAYLIST, SEPARATOR;
+	
+	public static ItemStack playlist(int id) {
+		return ItemUtil.createItemStack(Material.BOOK, id, (short)0, ITEMPLAYLIST);
+	}
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack randomDisk(Song song) {
@@ -37,7 +41,35 @@ public class Reference {
 		materials[10] = 2267;
 		
 		Material material = Material.getMaterial(materials[SimplyMusic.inst().getSongManager().getIndex(song) % 11]);
-		return ItemUtil.createItemStack(material, 1, (short)0, ChatColor.AQUA + SimplyMusic.inst().getSongManager().songName(song), ChatColor.DARK_PURPLE + "Author: " + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songAuthor(song));
+		return ItemUtil.createItemStack(material, 1, (short)0, ChatColor.AQUA + SimplyMusic.inst().getSongManager().songName(song), ChatColor.DARK_PURPLE + "Author: " + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songAuthor(song), ChatColor.BLUE + MISCLOOP);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static ItemStack playlistDisk(Song song) {
+		int[] materials = new int[11];
+		int it = 0;
+		for(int i = 2256; i <= 2265; i++) {
+			materials[it] = i;
+			it++;
+		}
+		materials[10] = 2267;
+		
+		Material material = Material.getMaterial(materials[SimplyMusic.inst().getSongManager().getIndex(song) % 11]);
+		return ItemUtil.createItemStack(material, 1, (short)0, ChatColor.AQUA + SimplyMusic.inst().getSongManager().songName(song), ChatColor.DARK_PURPLE + "Author: " + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songAuthor(song), ChatColor.BLUE + MISCREMOVE);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static ItemStack addingDisk(Song song) {
+		int[] materials = new int[11];
+		int it = 0;
+		for(int i = 2256; i <= 2265; i++) {
+			materials[it] = i;
+			it++;
+		}
+		materials[10] = 2267;
+		
+		Material material = Material.getMaterial(materials[SimplyMusic.inst().getSongManager().getIndex(song) % 11]);
+		return ItemUtil.createItemStack(material, 1, (short)0, ChatColor.AQUA + SimplyMusic.inst().getSongManager().songName(song), ChatColor.DARK_PURPLE + "Author: " + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songAuthor(song), ChatColor.BLUE + MISCADD);
 	}
 	
 	public static String commands() {
@@ -48,6 +80,7 @@ public class Reference {
 		helpMenu.append(AQUA + "/music " + CMDLIST + GOLD + " - " + HELPLIST + "\n");
 		helpMenu.append(AQUA + "/music " + CMDPLAY + GOLD + " - " + HELPPLAY + "\n");
 		helpMenu.append(AQUA + "/music " + CMDPLAY + " <SongID>" + GOLD + " - " + HELPPLAYID + "\n");
+		helpMenu.append(AQUA + "/music " + CMDLOOP + " <SongID>" + GOLD + " - " + HELPLOOP + "\n");
 		helpMenu.append(AQUA + "/music " + CMDTUNE + " <Player>" + GOLD + " - " + HELPTUNE + "\n");
 		helpMenu.append(AQUA + "/music " + CMDSTOP + GOLD + " - " + HELPSTOP + "\n");
 		helpMenu.append(AQUA + "/music " + CMDSHUFFLE + GOLD + " - " + HELPSHUFFLE + "\n");
@@ -71,15 +104,16 @@ public class Reference {
 		REFRESH = ItemUtil.createItemStack(Material.PAPER, 1, (short)0, ChatColor.GREEN + ITEMREFRESH);
 	    VOLUME = ItemUtil.createItemStack(Material.DIODE, 1, (short)0, ChatColor.BLUE + ITEMVOLUME);
 	    FILTER = ItemUtil.createItemStack(Material.SIGN, 1, (short)0, ChatColor.DARK_GREEN + ITEMFILTER, ChatColor.GOLD + MISCCLEARFILTER);
+	    PLAYLIST = ItemUtil.createItemStack(Material.BOOK, 1, (short)0, ChatColor.AQUA + ITEMPLAYLIST);
 		SEPARATOR = ItemUtil.createItemStack(Material.STAINED_GLASS_PANE, 1, (short)0, " ");
 	}
 	
 	//LANG
-	public static String NEPERMISSIONS, NPLAYER, UNKNOWN, IARGS, IINT, ISONG, IPLAYER, NSONGS, YPLAYER, NLPLAYER, NPLAYING, IVOLUME, IDOWNLOAD, INTERRUPTED, RELOADING, RELOADED, NOWPLAYING, STOPPED, TUNED, SHUFFLED, SKIPPED, PLAYING, OPENED, DOWNLOADING, LISTENING, DOWNLOADED, CVOLUME, WTF;
-	public static String HELPHELP, HELPRELOAD, HELPLIST, HELPPLAY, HELPPLAYID, HELPTUNE, HELPSTOP, HELPSHUFFLE, HELPSKIP, HELPGUI, HELPIMPORT, HELPVOLUME;
-	public static String ITEMBACKMAIN, ITEMBACK, ITEMNEXT, ITEMSTOP, ITEMSKIP, ITEMPLAY, ITEMSHUFFLE, ITEMTUNE, ITEMREFRESH, ITEMVOLUME, ITEMFILTER;
-	public static String CMDHELP, CMDRELOAD, CMDLIST, CMDPLAY, CMDTUNE, CMDSTOP, CMDSHUFFLE, CMDSKIP, CMDGUI, CMDIMPORT, CMDVOLUME;
-	public static String MISCCLEARFILTER;
+	public static String NEPERMISSIONS, NPLAYER, UNKNOWN, IARGS, IINT, ISONG, IPLAYER, NSONGS, YPLAYER, NLPLAYER, EPLAYLIST, FPLAYLIST, NPLAYING, ADDED, REMOVED, IVOLUME, IDOWNLOAD, INTERRUPTED, RELOADING, RELOADED, NOWPLAYING, NOWLOOPING, STOPPED, TUNED, SHUFFLED, SKIPPED, PLAYING, OPENED, DOWNLOADING, LISTENING, DOWNLOADED, CVOLUME, WTF;
+	public static String HELPHELP, HELPRELOAD, HELPLIST, HELPPLAY, HELPPLAYID, HELPLOOP, HELPTUNE, HELPSTOP, HELPSHUFFLE, HELPSKIP, HELPGUI, HELPIMPORT, HELPVOLUME;
+	public static String ITEMBACKMAIN, ITEMBACK, ITEMNEXT, ITEMSTOP, ITEMSKIP, ITEMPLAY, ITEMSHUFFLE, ITEMTUNE, ITEMREFRESH, ITEMVOLUME, ITEMFILTER, ITEMPLAYLIST;
+	public static String CMDHELP, CMDRELOAD, CMDLIST, CMDPLAY, CMDLOOP, CMDTUNE, CMDSTOP, CMDSHUFFLE, CMDSKIP, CMDGUI, CMDIMPORT, CMDVOLUME;
+	public static String MISCCLEARFILTER, MISCLOOP, MISCREMOVE, MISCADD;
 	
 	public static void loadLang(boolean forceDefault) {
 		SimplyMusic.inst().reloadConfig();
@@ -89,16 +123,22 @@ public class Reference {
 		if(SimplyMusic.inst().getConfig().getString("title_inventory") == null) SimplyMusic.inst().getConfig().set("title_inventory", MiscText.TITLEINVENTORY.toString());
 		if(SimplyMusic.inst().getConfig().getString("title_volume") == null) SimplyMusic.inst().getConfig().set("title_volume", MiscText.TITLEVOLUME.toString());
 		if(SimplyMusic.inst().getConfig().getString("title_tune") == null) SimplyMusic.inst().getConfig().set("title_tune", MiscText.TITLETUNE.toString());
+		if(SimplyMusic.inst().getConfig().getString("title_playlist") == null) SimplyMusic.inst().getConfig().set("title_playlist", MiscText.TITLEPLAYLIST.toString());
+		if(SimplyMusic.inst().getConfig().getString("title_choose") == null) SimplyMusic.inst().getConfig().set("title_choose", MiscText.TITLECHOOSEPLAYLIST.toString());
 		
 		String titleinventory = SimplyMusic.inst().getConfig().getString("title_inventory");
 		String titlevolume = SimplyMusic.inst().getConfig().getString("title_volume");
 		String titletune = SimplyMusic.inst().getConfig().getString("title_tune");
+		String titleplaylist = SimplyMusic.inst().getConfig().getString("title_playlist");
+		String titlechoose = SimplyMusic.inst().getConfig().getString("title_choose");
 		
 		INVENTORY_TITLE = ChatColor.translateAlternateColorCodes('&', titleinventory);
 		VOLUME_TITLE = ChatColor.translateAlternateColorCodes('&', titlevolume);
 		TUNE_TITLE = ChatColor.translateAlternateColorCodes('&', titletune);
+		PLAYLIST_TITLE = ChatColor.translateAlternateColorCodes('&', titleplaylist);
+		CHOOSE_TITLE = ChatColor.translateAlternateColorCodes('&', titlechoose);
 		
-		PREFIX = INVENTORY_TITLE + ": " + WHITE;
+		PREFIX = INVENTORY_TITLE + WHITE;
 		
 		SimplyMusic.log("Loaded custom prefixes");
 		
@@ -119,14 +159,19 @@ public class Reference {
 			IVOLUME       = CommandResponse.IVOLUME.toString();
 			IDOWNLOAD     = CommandResponse.IDOWNLOAD.toString();
 			INTERRUPTED   = CommandResponse.INTERRUPTED.toString();
+			EPLAYLIST     = CommandResponse.EPLAYLIST.toString();
+			FPLAYLIST     = CommandResponse.FPLAYLIST.toString();
 			RELOADING     = CommandResponse.RELOADING.toString();
 			RELOADED      = CommandResponse.RELOADED.toString();
 			NOWPLAYING    = CommandResponse.NOWPLAYING.toString();
+			NOWLOOPING    = CommandResponse.NOWLOOPING.toString();
 			STOPPED       = CommandResponse.STOPPED.toString();
 			TUNED         = CommandResponse.TUNED.toString();
 			SHUFFLED      = CommandResponse.SHUFFLED.toString();
 			SKIPPED       = CommandResponse.SKIPPED.toString();
 			PLAYING       = CommandResponse.PLAYING.toString();
+			ADDED         = CommandResponse.ADDED.toString();
+			REMOVED       = CommandResponse.REMOVED.toString();
 			LISTENING     = CommandResponse.LISTENING.toString();
 			OPENED        = CommandResponse.OPENED.toString();
 			DOWNLOADING   = CommandResponse.DOWNLOADING.toString();
@@ -139,6 +184,7 @@ public class Reference {
 			HELPLIST      = CommandDescriptions.LIST.toString();
 			HELPPLAY      = CommandDescriptions.PLAY.toString();
 			HELPPLAYID    = CommandDescriptions.PLAYID.toString();
+			HELPLOOP      = CommandDescriptions.LOOP.toString();
 			HELPTUNE      = CommandDescriptions.TUNE.toString();
 			HELPSTOP      = CommandDescriptions.STOP.toString();
 			HELPSHUFFLE   = CommandDescriptions.SHUFFLE.toString();
@@ -158,11 +204,13 @@ public class Reference {
 			ITEMREFRESH   = ItemNames.REFRESH.toString();
 			ITEMVOLUME    = ItemNames.VOLUME.toString();
 			ITEMFILTER    = ItemNames.FILTER.toString();
+			ITEMPLAYLIST  = ItemNames.PLAYLIST.toString();
 			
 			CMDHELP       = Commands.HELP.toString();
 			CMDRELOAD     = Commands.RELOAD.toString();
 			CMDLIST       = Commands.LIST.toString();
 			CMDPLAY       = Commands.PLAY.toString();
+			CMDLOOP       = Commands.LOOP.toString();
 			CMDTUNE       = Commands.TUNE.toString();
 			CMDSTOP       = Commands.STOP.toString();
 			CMDSHUFFLE    = Commands.SHUFFLE.toString();
@@ -172,6 +220,9 @@ public class Reference {
 			CMDVOLUME     = Commands.VOLUME.toString();
 			
 			MISCCLEARFILTER = MiscText.CLEARFILTER.toString();
+			MISCLOOP        = MiscText.LOOP.toString();
+			MISCADD         = MiscText.ADD.toString();
+			MISCREMOVE      = MiscText.REMOVE.toString();
 		}else {
 			YamlConfiguration lang = new YamlConfiguration();
 			File langFile = new File("plugins/" + SimplyMusic.inst().getName() + "/" + SimplyMusic.inst().getConfig().getString("lang") + ".yml");
@@ -198,14 +249,19 @@ public class Reference {
 				IVOLUME       = PREFIX + ChatColor.RED + lang.getString("ivolume");
 				IDOWNLOAD     = PREFIX + ChatColor.RED + lang.getString("idownload");
 				INTERRUPTED   = PREFIX + ChatColor.RED + lang.getString("interrupted");
+				EPLAYLIST     = PREFIX + ChatColor.RED + lang.getString("eplaylist");
+				FPLAYLIST     = PREFIX + ChatColor.RED + lang.getString("fplaylist");
 				RELOADING     = PREFIX + ChatColor.GREEN + lang.getString("reloading");
 				RELOADED      = PREFIX + ChatColor.GREEN + lang.getString("reloaded");
 				NOWPLAYING    = PREFIX + ChatColor.GREEN + lang.getString("nowplaying");
+				NOWLOOPING    = PREFIX + ChatColor.GREEN + lang.getString("nowlooping");
 				STOPPED       = PREFIX + ChatColor.GREEN + lang.getString("stopped");
 				TUNED         = PREFIX + ChatColor.GREEN + lang.getString("tuned");
 				SHUFFLED      = PREFIX + ChatColor.GREEN + lang.getString("shuffled");
 				SKIPPED       = PREFIX + ChatColor.GREEN + lang.getString("skipped");
 				PLAYING       = PREFIX + ChatColor.GREEN + lang.getString("playing");
+				ADDED         = PREFIX + ChatColor.GREEN + lang.getString("added");
+				REMOVED       = PREFIX + ChatColor.GREEN + lang.getString("removed");
 				LISTENING     = PREFIX + ChatColor.GREEN + lang.getString("listening");
 				OPENED        = PREFIX + ChatColor.GREEN + lang.getString("opened");
 				DOWNLOADING   = PREFIX + ChatColor.GREEN + lang.getString("downloading");
@@ -218,6 +274,7 @@ public class Reference {
 				HELPLIST      = lang.getString("help_list");
 				HELPPLAY      = lang.getString("help_play");
 				HELPPLAYID    = lang.getString("help_playid");
+				HELPLOOP      = lang.getString("help_loop");
 				HELPTUNE      = lang.getString("help_tune");
 				HELPSTOP      = lang.getString("help_stop");
 				HELPSHUFFLE   = lang.getString("help_shuffle");
@@ -237,11 +294,13 @@ public class Reference {
 				ITEMREFRESH   = lang.getString("item_refresh");
 				ITEMVOLUME    = lang.getString("item_volume");
 				ITEMFILTER    = lang.getString("item_filter");
+				ITEMPLAYLIST  = lang.getString("item_playlist");
 				
 				CMDHELP       = lang.getString("cmd_help");
 				CMDRELOAD     = lang.getString("cmd_reload");
 				CMDLIST       = lang.getString("cmd_list");
 				CMDPLAY       = lang.getString("cmd_play");
+				CMDLOOP       = lang.getString("cmd_loop");
 				CMDTUNE       = lang.getString("cmd_tune");
 				CMDSTOP       = lang.getString("cmd_stop");
 				CMDSHUFFLE    = lang.getString("cmd_shuffle");
@@ -251,6 +310,9 @@ public class Reference {
 				CMDVOLUME     = lang.getString("cmd_volume");
 				
 				MISCCLEARFILTER = lang.getString("misc_clearfilter");
+				MISCLOOP        = lang.getString("misc_loop");
+				MISCADD         = lang.getString("misc_add");
+				MISCREMOVE      = lang.getString("misc_remove");
 				
 				SimplyMusic.log("Loaded language " + lang.getString("language"));
 			}

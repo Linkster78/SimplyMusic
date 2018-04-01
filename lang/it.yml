@@ -1,0 +1,86 @@
+################################################################################
+#  _____   _                       _           __  __                 _        #
+# / ____| (_)                     | |         |  \/  |               (_)       #
+#| (___    _   _ __ ___    _ __   | |  _   _  | \  / |  _   _   ___   _    ___ #
+# \___ \  | | | '_ ` _ \  | '_ \  | | | | | | | |\/| | | | | | / __| | |  / __|#
+# ____) | | | | | | | | | | |_) | | | | |_| | | |  | | | |_| | \__ \ | | | (__ #
+#|_____/  |_| |_| |_| |_| | .__/  |_|  \__, | |_|  |_|  \__,_| |___/ |_|  \___|#
+#                         | |           __/ |                                  #
+#                         |_|          |___/                                   #
+#                                                                              # 
+#                    #Developed by RedstoneTek, on Spigot                      #
+#                   #Italian Language by zBoringDropHD(EC)                     #
+################################################################################
+
+language: "Italian (Italy)"
+
+nepermissions: "Permesso negato."
+nplayer: "Devi inserire il nome di un giocatore."
+unknown: "Comando sconosciuto."
+iargs: "Argomento invalido."
+iint: "Numero invalido."
+isong: "Traccia inesistente."
+iplayer: "Questo giocatore non esiste."
+nsongs: "Al momento non c'e' nessuna traccia riproducibile."
+yplayer: "Non puoi ascoltare musica con te stesso."
+nlplayer: "Questo giocatore non sta ascoltando nessuna traccia musicale."
+nplaying: "Non stai ascoltando nessuna traccia musicale."
+ivolume: "Il volume deve essere un numero compreso fra 0 e 100."
+idownload: "Si e' verificato un problema durante il download della traccia."
+interrupted: "La musica e' stata interrotta a causa di modifiche al sistema da parte dello staff."
+reloading: "Ricaricamento del plugin..."
+reloaded: "Plugin ricaricato con successo."
+nowplaying: "Stai ascoltando "
+stopped: "Musica disabilitata."
+tuned: "Stai ascoltando questa traccia insieme a "
+shuffled: "Modalita' casuale abilitata."
+skipped: "Prossima traccia"
+playing: "In riproduzione"
+listening: "Stai ascoltando "
+opened: "Hai acceso il lettore musicale."
+downloading: "Download traccia in corso..."
+downloaded: "Traccia scaricata "
+cvolume: "Volume impostato a "
+wtf: "Qualcosa e' andato storto, contatta lo staff del server."
+
+help_help: "Mostra il menu di aiuto (questo)"
+help_reload: "Ricarica il plugin"
+help_list: "Mostra tutte le tracce"
+help_play: "Ascolta le tracce in modo consecutivo"
+help_playid: "Ascolta la musica corrispondente al suo ID"
+help_tune: "Ascolta una traccia insieme ad un giocatore"
+help_stop: "Disabilita musica"
+help_shuffle: "Ascolta le tracce in sequenza casuale"
+help_skip: "Passa alla traccia successiva"
+help_gui: "Apri la gui del plugin"
+help_import: "Importa musica da un collegamento diretto a un file .nbs con il nome specificato"
+help_volume: "Imposta il volume da 0 a 100"
+
+cmd_help: "help"
+cmd_reload: "reload"
+cmd_list: "list"
+cmd_play: "play"
+cmd_tune: "tune"
+cmd_stop: "stop"
+cmd_shuffle: "shuffle"
+cmd_skip: "skip"
+cmd_gui: "gui"
+cmd_import: "import"
+cmd_volume: "volume"
+
+item_backmain: "Menu principale"
+item_back: "Pagina precedente"
+item_next: "Pagina successiva"
+item_stop: "Disabilita musica"
+item_skip: "Cambia traccia"
+item_play: "Abilita musica"
+item_shuffle: "Modalita' casuale"
+item_tune: "Ascolta insieme ad un giocatore"
+item_refresh: "Aggiorna lista tracce"
+item_volume: "Imposta volume"
+item_filter: "Cerca una traccia"
+
+misc_clearfilter: "Click destro per rimuovere il filtro"
+
+#End of this file
+#Credits at the top of this file.

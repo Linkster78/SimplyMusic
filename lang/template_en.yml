@@ -1,0 +1,94 @@
+################################################################################
+#  _____   _                       _           __  __                 _        #
+# / ____| (_)                     | |         |  \/  |               (_)       #
+#| (___    _   _ __ ___    _ __   | |  _   _  | \  / |  _   _   ___   _    ___ #
+# \___ \  | | | '_ ` _ \  | '_ \  | | | | | | | |\/| | | | | | / __| | |  / __|#
+# ____) | | | | | | | | | | |_) | | | | |_| | | |  | | | |_| | \__ \ | | | (__ #
+#|_____/  |_| |_| |_| |_| | .__/  |_|  \__, | |_|  |_|  \__,_| |___/ |_|  \___|#
+#                         | |           __/ |                                  #
+#                         |_|          |___/                                   #
+#                                                                              # 
+#                    #Developed by RedstoneTek, on Spigot                      #
+#                       #LANGUAGE Language by YOURNAME                         #
+################################################################################
+
+language: "YOUR LANGUAGE NAME"
+
+nepermissions: "Not enough permissions"
+nplayer: "You must be a player"
+unknown: "Unknown subcommand"
+iargs: "Invalid quantity of arguments"
+iint: "Invalid number"
+isong: "Unknown music"
+iplayer: "This player doesn't exist"
+nsongs: "There are no music to play through"
+yplayer: "You can't listen to music with yourself"
+nlplayer: "This player isn't listening to music"
+nplaying: "You aren't listening to music"
+ivolume: "The volume must be from 0 - 100"
+idownload: "There was a problem while downloading the song "
+interrupted: "Your music was interrupted because of a reload"
+eplaylist: "This playlist is empty"
+fplaylist: "This playlist is full"
+reloading: "Reloading the plugin..."
+reloaded: "Plugin reloaded"
+nowplaying: "Now playing: "
+nowlooping: "Now looping: "
+stopped: "Music playback stopped"
+tuned: "You are now listening to music with "
+shuffled: "Now shuffling through the song list"
+skipped: "Skipped the current song"
+playing: "Now in consecutive playback"
+added: "Added the song to the playlist "
+removed: "Removed the song from the playlist "
+listening: "You are listening to "
+opened: "Opened the music GUI"
+downloading: "Downloading your song..."
+downloaded: "Music downloaded "
+cvolume: "Adjusted the volume to "
+wtf: "Something very bad happened. Notify the developer!"
+
+help_help: "Displays the help menu"
+help_reload: "Reloads the plugin"
+help_list: "Lists every available song"
+help_play: "Plays every song one after the other"
+help_loop: "Plays a song in loop"
+help_playid: "Plays the song with the specific id"
+help_tune: "Écoute de la musique avec un utilisateur"
+help_stop: "Arrête la musique"
+help_shuffle: "Joue toutes les musiques dans un ordre aléatoire"
+help_skip: "Passe la musique en lecture"
+help_gui: "Pour les utilisateurs préférant un interface graphique"
+help_import: "Importe une musique à partir d'un lien direct à un fichier .nbs avec le nom spécifié"
+help_volume: "Ajuste le volume de 0 à 100"
+
+cmd_help: "aide"
+cmd_reload: "recharger"
+cmd_list: "liste"
+cmd_play: "jouer"
+cmd_loop: "loop"
+cmd_tune: "tune"
+cmd_stop: "arreter"
+cmd_shuffle: "aleatoire"
+cmd_skip: "passer"
+cmd_gui: "gui"
+cmd_import: "importer"
+cmd_volume: "volume"
+
+item_backmain: "Retour au menu de musique"
+item_back: "Dernière page"
+item_next: "Prochaine page"
+item_stop: "Arrêter la musique"
+item_skip: "Passer la musique"
+item_play: "Jouer"
+item_shuffle: "Musique Aléatoire"
+item_tune: "Écouter avec les autres joueurs"
+item_refresh: "Rafraichir la liste"
+item_volume: "Volume"
+item_filter: "Filtrer les résultats"
+item_playlist: "Playlists"
+
+misc_clearfilter: "Faites un click droit pour enlever le filtre"
+misc_loop: "Right click to play this song on a loop"
+misc_add: "Left click to add to the playlist"
+misc_remove: "Left click to remove from the playlist"
