@@ -1,4 +1,4 @@
-package com.tek.sm.util;
+package com.tek.sm.util.misc;
 
 import java.util.ArrayList;
 import java.util.List;

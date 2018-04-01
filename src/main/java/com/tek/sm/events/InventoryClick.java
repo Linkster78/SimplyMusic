@@ -1,14 +1,5 @@
 package com.tek.sm.events;
 
-import static com.tek.sm.util.Reference.CVOLUME;
-import static com.tek.sm.util.Reference.NEPERMISSIONS;
-import static com.tek.sm.util.Reference.NPLAYING;
-import static com.tek.sm.util.Reference.NSONGS;
-import static com.tek.sm.util.Reference.PLAYING;
-import static com.tek.sm.util.Reference.SHUFFLED;
-import static com.tek.sm.util.Reference.SKIPPED;
-import static com.tek.sm.util.Reference.TUNED;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,10 +16,10 @@ import com.tek.sm.gui.TuneGui;
 import com.tek.sm.gui.VolumeGui;
 import com.tek.sm.management.PlayerSession;
 import com.tek.sm.playlists.Playlist;
-import com.tek.sm.util.CommandPermissions;
-import com.tek.sm.util.InventoryUtils;
-import com.tek.sm.util.Reference;
-import com.tek.sm.util.VersionUtils;
+import com.tek.sm.util.enums.CommandPermissions;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.InventoryUtils;
+import com.tek.sm.util.misc.VersionUtils;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockPlayerMain;
 import com.xxmicloxx.NoteBlockAPI.Song;
 
@@ -60,7 +51,7 @@ public class InventoryClick implements Listener{
 						
 							shouldRefresh = true;
 						}else {
-							p.sendMessage(Reference.NEPERMISSIONS.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 							VersionUtils.playError(p);
 						}
 					}else if(e.getClick().equals(ClickType.RIGHT) || e.getClick().equals(ClickType.SHIFT_RIGHT)) {
@@ -74,7 +65,7 @@ public class InventoryClick implements Listener{
 						
 							shouldRefresh = true;
 						}else {
-							p.sendMessage(Reference.NEPERMISSIONS.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 							VersionUtils.playError(p);
 						}
 					}
@@ -101,11 +92,11 @@ public class InventoryClick implements Listener{
 						SimplyMusic.inst().getSongManager().stop(p);
 						
 						VersionUtils.playSuccess(p);
-						p.sendMessage(Reference.STOPPED.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("stopped"));
 						
 						shouldRefresh = true;
 					}else {
-						p.sendMessage(Reference.NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -117,7 +108,7 @@ public class InventoryClick implements Listener{
 								SimplyMusic.inst().getSongManager().next(p);
 								
 								VersionUtils.playSuccess(p);
-								p.sendMessage(SKIPPED.toString());
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("skipped"));
 								PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(p);
 								if(!session.shuffle && !session.consec) {
 									p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(session.sp.getSong()));
@@ -125,15 +116,15 @@ public class InventoryClick implements Listener{
 								
 								shouldRefresh = true;
 							}else {
-								p.sendMessage(NPLAYING.toString());
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nplaying"));
 								VersionUtils.playError(p);
 							}
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 							VersionUtils.playError(p);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -165,15 +156,15 @@ public class InventoryClick implements Listener{
 							SimplyMusic.inst().getSongManager().playConsec(p);
 							
 							VersionUtils.playSuccess(p);
-							p.sendMessage(PLAYING.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("playing"));
 							
 							shouldRefresh = true;
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 							VersionUtils.playError(p);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -184,7 +175,7 @@ public class InventoryClick implements Listener{
 						
 						VersionUtils.playPop(p);
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -195,7 +186,7 @@ public class InventoryClick implements Listener{
 						
 						VersionUtils.playPop(p);
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -206,15 +197,15 @@ public class InventoryClick implements Listener{
 							SimplyMusic.inst().getSongManager().shuffle(p);
 							
 							VersionUtils.playSuccess(p);
-							p.sendMessage(SHUFFLED.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("shuffled"));
 							
 							shouldRefresh = true;
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 							VersionUtils.playError(p);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -226,11 +217,11 @@ public class InventoryClick implements Listener{
 							
 							VersionUtils.playSuccess(p);
 						}else {
-							p.sendMessage(NSONGS.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 							VersionUtils.playError(p);
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -255,13 +246,13 @@ public class InventoryClick implements Listener{
 								SimplyMusic.inst().getSongManager().tune(p, player);
 								
 								VersionUtils.playSuccess(p);
-								p.sendMessage(TUNED.toString() + ChatColor.GOLD + player.getName());
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("tuned") + ChatColor.GOLD + player.getName());
 						
 								shouldRefresh = true;
 							}
 						}
 					}else {
-						p.sendMessage(Reference.NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -293,11 +284,11 @@ public class InventoryClick implements Listener{
 						SimplyMusic.inst().getSongManager().stop(p);
 						
 						VersionUtils.playSuccess(p);
-						p.sendMessage(Reference.STOPPED.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("stopped"));
 						
 						shouldRefresh = true;
 					}else {
-						p.sendMessage(Reference.NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -333,11 +324,11 @@ public class InventoryClick implements Listener{
 						NoteBlockPlayerMain.setPlayerVolume(p, (byte)volume);
 						
 						VersionUtils.playSuccess(p);
-						p.sendMessage(CVOLUME.toString() + volume);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("cvolume") + volume);
 						
 						shouldRefresh = true;
 					}else {
-						p.sendMessage(NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -360,7 +351,7 @@ public class InventoryClick implements Listener{
 						
 						playlist.removeSong(song);
 						
-						p.sendMessage(Reference.REMOVED + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(song));
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("removed") + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(song));
 						VersionUtils.playSuccess(p);
 						shouldRefresh = true;
 					}
@@ -375,11 +366,11 @@ public class InventoryClick implements Listener{
 						if(!playlist.isFull()) {
 							playlist.addSong(song);
 							
-							p.sendMessage(Reference.ADDED + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(song));
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("added") + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(song));
 							VersionUtils.playSuccess(p);
 							shouldRefresh = true;
 						}else {
-							p.sendMessage(Reference.FPLAYLIST.toString());
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("fplaylist"));
 							VersionUtils.playError(p);
 						}
 					}
@@ -416,7 +407,7 @@ public class InventoryClick implements Listener{
 						p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(playlist.getSongs().get(0)));
 						VersionUtils.playSuccess(p);
 					}else {
-						p.sendMessage(Reference.EPLAYLIST.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("eplaylist"));
 						VersionUtils.playError(p);
 					}
 				}
@@ -426,11 +417,11 @@ public class InventoryClick implements Listener{
 						SimplyMusic.inst().getSongManager().stop(p);
 						
 						VersionUtils.playSuccess(p);
-						p.sendMessage(Reference.STOPPED.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("stopped"));
 						
 						shouldRefresh = true;
 					}else {
-						p.sendMessage(Reference.NEPERMISSIONS.toString());
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 						VersionUtils.playError(p);
 					}
 				}

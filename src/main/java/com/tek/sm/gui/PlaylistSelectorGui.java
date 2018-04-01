@@ -3,15 +3,16 @@ package com.tek.sm.gui;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
-import com.tek.sm.util.InventoryUtils;
 import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.InventoryUtils;
 
 public class PlaylistSelectorGui{
 
 	private Inventory inventory;
 	
 	public PlaylistSelectorGui() {
-		this.inventory = Bukkit.createInventory(null, 27, Reference.CHOOSE_TITLE);
+		this.inventory = Bukkit.createInventory(null, 27, Lang.translate("title_choose"));
 		
 		init();
 	}
@@ -29,7 +30,7 @@ public class PlaylistSelectorGui{
 	
 	public static boolean isChooseGui(Inventory inventory) {
 		if(inventory.getTitle() == null) return false;
-		return inventory.getTitle().startsWith(Reference.CHOOSE_TITLE);
+		return inventory.getTitle().startsWith(Lang.translate("title_choose"));
 	}
 
 }

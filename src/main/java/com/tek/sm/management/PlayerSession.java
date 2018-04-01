@@ -206,6 +206,8 @@ public class PlayerSession {
 			if(settings.getConfigurationSection("playlists") == null) {
 				for(int i = 0; i < 3; i++) { settings.set("playlists.pl_" + i, Playlist.createEmpty().encode()); }
 			}
+			
+			settings.save(file);
 		} catch (IOException | InvalidConfigurationException e) { }
 		
 		if(justCreated) {

@@ -4,8 +4,8 @@ import org.bukkit.ChatColor;
 
 import com.tek.sm.SimplyMusic;
 import com.tek.sm.management.PlayerSession;
-import com.tek.sm.util.ActionBar;
-import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.ActionBar;
 import com.xxmicloxx.NoteBlockAPI.Song;
 
 public class SongUpdater implements Runnable{
@@ -66,7 +66,7 @@ public class SongUpdater implements Runnable{
 			}
 			
 			if(session.isListening()) {
-				ActionBar.sendActionBar(session.player(), Reference.LISTENING.toString() + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(session.getSongListening()));
+				ActionBar.sendActionBar(session.player(), Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("listening") + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(session.getSongListening()));
 			}
 		}
 	}

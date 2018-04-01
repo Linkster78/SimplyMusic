@@ -1,4 +1,4 @@
-package com.tek.sm.util;
+package com.tek.sm.util.enums;
 
 public enum CommandDescriptions {
 	HELP("Displays the help menu"),

@@ -11,9 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.tek.sm.SimplyMusic;
-import com.tek.sm.util.InventoryUtils;
-import com.tek.sm.util.ItemUtil;
 import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.InventoryUtils;
+import com.tek.sm.util.misc.ItemUtil;
 
 public class TuneGui{
 
@@ -22,7 +23,7 @@ public class TuneGui{
 	private Player player;
 	
 	public TuneGui(int page, Player player) {
-		this.inventory = Bukkit.createInventory(null, 36, Reference.TUNE_TITLE + ChatColor.GREEN + " Page " + page);
+		this.inventory = Bukkit.createInventory(null, 36, Lang.translate("title_tune") + ChatColor.GREEN + " Page " + page);
 		this.page = page;
 		this.player = player;
 		
@@ -87,7 +88,7 @@ public class TuneGui{
 	
 	public static boolean isTuneGui(Inventory inventory) {
 		if(inventory.getTitle() == null) return false;
-		return inventory.getTitle().startsWith(Reference.TUNE_TITLE);
+		return inventory.getTitle().startsWith(Lang.translate("title_tune"));
 	}
 	
 	public static int getPage(Inventory inventory) {

@@ -8,9 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import com.tek.sm.SimplyMusic;
-import com.tek.sm.util.InventoryUtils;
-import com.tek.sm.util.ItemUtil;
 import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.InventoryUtils;
+import com.tek.sm.util.misc.ItemUtil;
 import com.xxmicloxx.NoteBlockAPI.Song;
 
 public class MusicGui{
@@ -21,7 +22,7 @@ public class MusicGui{
 	private Song song;
 	
 	public MusicGui(int page, Player player, String filter) {
-		this.inventory = Bukkit.createInventory(null, 54, Reference.INVENTORY_TITLE + ChatColor.DARK_PURPLE + " Filter: <" + filter + "> " + ChatColor.GREEN + " Page " + page);
+		this.inventory = Bukkit.createInventory(null, 54, Lang.translate("title_inventory") + ChatColor.DARK_PURPLE + " Filter: <" + filter + "> " + ChatColor.GREEN + " Page " + page);
 		this.page = page;
 		this.song = SimplyMusic.inst().getSessionManager().getSession(player) == null ? null : SimplyMusic.inst().getSessionManager().getSession(player).getSongPlaying();
 		this.filter = filter;
@@ -71,7 +72,7 @@ public class MusicGui{
 	
 	public static boolean isMusicGui(Inventory inventory) {
 		if(inventory.getTitle() == null) return false;
-		return inventory.getTitle().startsWith(Reference.INVENTORY_TITLE);
+		return inventory.getTitle().startsWith(Lang.translate("title_inventory"));
 	}
 	
 	public static int getPage(Inventory inventory) {

@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.tek.sm.SimplyMusic;
 import com.tek.sm.playlists.Playlist;
-import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
 import com.xxmicloxx.NoteBlockAPI.NBSDecoder;
 import com.xxmicloxx.NoteBlockAPI.Song;
 
@@ -28,7 +28,7 @@ public class SongManager {
 	
 	public void reloadSongs() {
 		for(PlayerSession session : SimplyMusic.inst().getSessionManager().getSessions()) {
-			if(session.isListening()) session.player().sendMessage(Reference.INTERRUPTED.toString());
+			if(session.isListening()) session.player().sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("interrupted"));
 			session.close(true);
 		}
 		
@@ -142,9 +142,9 @@ public class SongManager {
 		if(player == null) return;
 		
 		if(song != null) {
-			player.sendMessage(Reference.DOWNLOADED.toString() + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(song));
+			player.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("downloaded") + ChatColor.GOLD + SimplyMusic.inst().getSongManager().songName(song));
 		}else {
-			player.sendMessage(Reference.IDOWNLOAD.toString() + ChatColor.GOLD + error);
+			player.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("idownload") + ChatColor.GOLD + error);
 		}
 	}
 	
@@ -310,11 +310,11 @@ public class SongManager {
 	}
 	
 	public String nowPlaying(Song song) {
-		return Reference.NOWPLAYING.toString() + ChatColor.GOLD + songName(song);
+		return Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("nowplaying") + ChatColor.GOLD + songName(song);
 	}
 	
 	public String nowLooping(Song song) {
-		return Reference.NOWLOOPING.toString() + ChatColor.GOLD + songName(song);
+		return Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("nowlooping") + ChatColor.GOLD + songName(song);
 	}
 	
 	public int amount() {

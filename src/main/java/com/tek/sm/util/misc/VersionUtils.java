@@ -1,4 +1,4 @@
-package com.tek.sm.util;
+package com.tek.sm.util.misc;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

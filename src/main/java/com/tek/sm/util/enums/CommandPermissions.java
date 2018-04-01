@@ -1,4 +1,6 @@
-package com.tek.sm.util;
+package com.tek.sm.util.enums;
+
+import com.tek.sm.util.Reference;
 
 public enum CommandPermissions {
 	RELOAD("admin.reload"),

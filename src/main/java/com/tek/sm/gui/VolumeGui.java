@@ -7,9 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import com.tek.sm.util.InventoryUtils;
-import com.tek.sm.util.ItemUtil;
 import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.InventoryUtils;
+import com.tek.sm.util.misc.ItemUtil;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockPlayerMain;
 
 public class VolumeGui{
@@ -18,7 +19,7 @@ public class VolumeGui{
 	private Player player;
 	
 	public VolumeGui(Player player) {
-		this.inventory = Bukkit.createInventory(null, 27, Reference.VOLUME_TITLE);
+		this.inventory = Bukkit.createInventory(null, 27, Lang.translate("title_volume"));
 		this.player = player;
 		
 		init();
@@ -47,7 +48,7 @@ public class VolumeGui{
 	
 	public static boolean isVolumeGui(Inventory inventory) {
 		if(inventory.getTitle() == null) return false;
-		return inventory.getTitle().startsWith(Reference.VOLUME_TITLE);
+		return inventory.getTitle().startsWith(Lang.translate("title_volume"));
 	}
 	
 }

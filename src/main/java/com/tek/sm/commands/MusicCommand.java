@@ -1,31 +1,9 @@
 package com.tek.sm.commands;
 
-import static com.tek.sm.util.CommandPermissions.GUI;
-import static com.tek.sm.util.CommandPermissions.IMPORT;
-import static com.tek.sm.util.CommandPermissions.LIST;
-import static com.tek.sm.util.CommandPermissions.RELOAD;
-import static com.tek.sm.util.Reference.CVOLUME;
-import static com.tek.sm.util.Reference.DOWNLOADING;
-import static com.tek.sm.util.Reference.IARGS;
-import static com.tek.sm.util.Reference.IINT;
-import static com.tek.sm.util.Reference.IPLAYER;
-import static com.tek.sm.util.Reference.ISONG;
-import static com.tek.sm.util.Reference.IVOLUME;
-import static com.tek.sm.util.Reference.NEPERMISSIONS;
-import static com.tek.sm.util.Reference.NLPLAYER;
-import static com.tek.sm.util.Reference.NPLAYER;
-import static com.tek.sm.util.Reference.NPLAYING;
-import static com.tek.sm.util.Reference.NSONGS;
-import static com.tek.sm.util.Reference.OPENED;
-import static com.tek.sm.util.Reference.PLAYING;
-import static com.tek.sm.util.Reference.RELOADED;
-import static com.tek.sm.util.Reference.RELOADING;
-import static com.tek.sm.util.Reference.SHUFFLED;
-import static com.tek.sm.util.Reference.SKIPPED;
-import static com.tek.sm.util.Reference.STOPPED;
-import static com.tek.sm.util.Reference.TUNED;
-import static com.tek.sm.util.Reference.UNKNOWN;
-import static com.tek.sm.util.Reference.YPLAYER;
+import static com.tek.sm.util.enums.CommandPermissions.GUI;
+import static com.tek.sm.util.enums.CommandPermissions.IMPORT;
+import static com.tek.sm.util.enums.CommandPermissions.LIST;
+import static com.tek.sm.util.enums.CommandPermissions.RELOAD;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -36,8 +14,9 @@ import org.bukkit.entity.Player;
 import com.tek.sm.SimplyMusic;
 import com.tek.sm.gui.MusicGui;
 import com.tek.sm.management.PlayerSession;
-import com.tek.sm.util.CommandPermissions;
 import com.tek.sm.util.Reference;
+import com.tek.sm.util.enums.CommandPermissions;
+import com.tek.sm.util.lang.Lang;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockPlayerMain;
 import com.xxmicloxx.NoteBlockAPI.Song;
 
@@ -52,107 +31,107 @@ public class MusicCommand implements CommandExecutor{
 			}
 			
 			else if(args.length == 1) {
-				if(args[0].equalsIgnoreCase(Reference.CMDHELP)) {
+				if(args[0].equalsIgnoreCase(Lang.translate("cmd_help"))) {
 					p.sendMessage(Reference.commands());
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDRELOAD)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_reload"))) {
 					if(p.hasPermission(RELOAD.toString())) {
-						p.sendMessage(RELOADING);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("reloading"));
 						
 						SimplyMusic.inst().getSongManager().reloadSongs();
-						Reference.loadLang(false);
+						Reference.loadLanguage();
 						Reference.loadItems();
 						
-						p.sendMessage(RELOADED);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("reloaded"));
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDLIST)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_list"))) {
 					if(p.hasPermission(LIST.toString())) {
 						p.sendMessage(SimplyMusic.inst().getSongManager().songs());
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDSTOP)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_stop"))) {
 					if(p.hasPermission(CommandPermissions.STOP.toString())) {
 						SimplyMusic.inst().getSongManager().stop(p);
-						p.sendMessage(STOPPED);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("stopped"));
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDSHUFFLE)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_shuffle"))) {
 					if(p.hasPermission(CommandPermissions.SHUFFLE.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().shuffle(p);
-							p.sendMessage(SHUFFLED);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("shuffled"));
 						}else {
-							p.sendMessage(NSONGS);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDPLAY)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_play"))) {
 					if(p.hasPermission(CommandPermissions.PLAY.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							SimplyMusic.inst().getSongManager().playConsec(p);
-							p.sendMessage(PLAYING);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("playing"));
 						}else {
-							p.sendMessage(NSONGS);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDSKIP)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_skip"))) {
 					if(p.hasPermission(CommandPermissions.SKIP.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							if(SimplyMusic.inst().getSessionManager().getSession(p) != null && SimplyMusic.inst().getSessionManager().getSession(p).isPlaying()) {
 								SimplyMusic.inst().getSongManager().next(p);
-								p.sendMessage(SKIPPED);
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("skipped"));
 								
 								PlayerSession session = SimplyMusic.inst().getSessionManager().getSession(p);
 								p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(session.sp.getSong()));
 							}else {
-								p.sendMessage(NPLAYING);
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nplaying"));
 							}
 						}else {
-							p.sendMessage(NSONGS);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDGUI)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_gui"))) {
 					if(p.hasPermission(GUI.toString())) {
 						if(SimplyMusic.inst().getSongManager().amount() != 0) {
 							p.openInventory(new MusicGui(1, p, "").getInventory());
-							p.sendMessage(OPENED);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("opened"));
 						}else {
-							p.sendMessage(NSONGS);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nsongs"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
 				else {
-					p.sendMessage(UNKNOWN);
+					p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("unknown"));
 				}
 			}
 			
 			else if(args.length == 2) {
-				if(args[0].equalsIgnoreCase(Reference.CMDPLAY)) {
+				if(args[0].equalsIgnoreCase(Lang.translate("cmd_play"))) {
 					if(p.hasPermission(CommandPermissions.PLAY.toString())) {
 						if(Reference.intPattern.matcher(args[1]).matches()) {
 							try {
@@ -163,20 +142,20 @@ public class MusicCommand implements CommandExecutor{
 									SimplyMusic.inst().getSongManager().playSong(p, song);
 									p.sendMessage(SimplyMusic.inst().getSongManager().nowPlaying(song));
 								}else {
-									p.sendMessage(ISONG);
+									p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("isong"));
 								}
 							}catch(Exception e) { 
-								p.sendMessage(IINT);
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iint"));
 							}
 						}else {
-							p.sendMessage(IINT);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iint"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				if(args[0].equalsIgnoreCase(Reference.CMDLOOP)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_loop"))) {
 					if(p.hasPermission(CommandPermissions.LOOP.toString())) {
 						if(Reference.intPattern.matcher(args[1]).matches()) {
 							try {
@@ -187,20 +166,20 @@ public class MusicCommand implements CommandExecutor{
 									SimplyMusic.inst().getSongManager().loop(p, song);
 									p.sendMessage(SimplyMusic.inst().getSongManager().nowLooping(song));
 								}else {
-									p.sendMessage(ISONG);
+									p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("isong"));
 								}
 							}catch(Exception e) { 
-								p.sendMessage(IINT);
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iint"));
 							}
 						}else {
-							p.sendMessage(IINT);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iint"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDTUNE)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_tune"))) {
 					if(p.hasPermission(CommandPermissions.TUNE.toString())) {
 						Player player = SimplyMusic.inst().getServer().getPlayer(args[1]);
 						
@@ -208,22 +187,22 @@ public class MusicCommand implements CommandExecutor{
 							if(!player.getName().equals(p.getName())) {
 								if(SimplyMusic.inst().getSongManager().isPlaying(player)) {
 									SimplyMusic.inst().getSongManager().tune(p, player);
-									p.sendMessage(TUNED + ChatColor.GOLD + player.getName());
+									p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("tuned") + ChatColor.GOLD + player.getName());
 								}else {
-									p.sendMessage(NLPLAYER);
+									p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nlplayer"));
 								}
 							}else {
-								p.sendMessage(YPLAYER);
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("yplayer"));
 							}
 						}else {
-							p.sendMessage(IPLAYER);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iplayer"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
-				else if(args[0].equalsIgnoreCase(Reference.CMDVOLUME)) {
+				else if(args[0].equalsIgnoreCase(Lang.translate("cmd_volume"))) {
 					if(p.hasPermission(CommandPermissions.VOLUME.toString())) {
 						if(Reference.intPattern.matcher(args[1]).matches()) {
 							try {
@@ -232,46 +211,46 @@ public class MusicCommand implements CommandExecutor{
 								if(vol >= 0 && vol <= 100) {
 									NoteBlockPlayerMain.setPlayerVolume(p, (byte)vol);
 									
-									p.sendMessage(CVOLUME + vol);
+									p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("cvolume") + vol);
 								}else {
-									p.sendMessage(IVOLUME);
+									p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("ivolume"));
 								}
 							}catch(Exception e) { 
-								p.sendMessage(IINT);
+								p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iint"));
 							}
 						}else {
-							p.sendMessage(IINT);
+							p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iint"));
 						}
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
 				else {
-					p.sendMessage(UNKNOWN);
+					p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("unknown"));
 				}
 			}
 			
 			else if(args.length == 3){
-				if(args[0].equalsIgnoreCase(Reference.CMDIMPORT)) {
+				if(args[0].equalsIgnoreCase(Lang.translate("cmd_import"))) {
 					if(p.hasPermission(IMPORT.toString())) {
-						p.sendMessage(DOWNLOADING);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.GREEN + Lang.translate("downloading"));
 						SimplyMusic.inst().getSongManager().downloadSong(args[2], args[1], p);
 					}else {
-						p.sendMessage(NEPERMISSIONS);
+						p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nepermissions"));
 					}
 				}
 				
 				else {
-					p.sendMessage(UNKNOWN);
+					p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("unknown"));
 				}
 			}
 			
 			else {
-				p.sendMessage(IARGS);
+				p.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("iargs"));
 			}
 		}else {
-			sender.sendMessage(NPLAYER);
+			sender.sendMessage(Lang.translate("title_prefix") + ChatColor.RED + Lang.translate("nplayer"));
 		}
 		
 		return false;

@@ -10,8 +10,9 @@ import org.bukkit.inventory.ItemStack;
 
 import com.tek.sm.SimplyMusic;
 import com.tek.sm.playlists.Playlist;
-import com.tek.sm.util.InventoryUtils;
 import com.tek.sm.util.Reference;
+import com.tek.sm.util.lang.Lang;
+import com.tek.sm.util.misc.InventoryUtils;
 import com.xxmicloxx.NoteBlockAPI.Song;
 
 public class PlaylistGui{
@@ -21,7 +22,7 @@ public class PlaylistGui{
 	private Player player;
 	
 	public PlaylistGui(int page, int playlist, Player player) {
-		this.inventory = Bukkit.createInventory(null, 54, Reference.PLAYLIST_TITLE + ChatColor.BLUE + " Playlist " + (playlist + 1) + ChatColor.GREEN + " Page " + page);
+		this.inventory = Bukkit.createInventory(null, 54, Lang.translate("title_playlist") + ChatColor.BLUE + " Playlist " + (playlist + 1) + ChatColor.GREEN + " Page " + page);
 		this.page = page;
 		this.playlist = playlist;
 		this.player = player;
@@ -75,7 +76,7 @@ public class PlaylistGui{
 	
 	public static boolean isPlaylistGui(Inventory inventory) {
 		if(inventory.getTitle() == null) return false;
-		return inventory.getTitle().startsWith(Reference.PLAYLIST_TITLE);
+		return inventory.getTitle().startsWith(Lang.translate("title_playlist"));
 	}
 	
 	public static int getPage(Inventory inventory) {

@@ -59,7 +59,7 @@ public class SimplyMusic extends JavaPlugin{
 			session.loadSettings();
 		}
 		
-		Reference.loadLang(false);
+		Reference.loadLanguage();
 		Reference.loadItems();
 		
 		songManager.reloadSongs();
